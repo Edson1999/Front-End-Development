@@ -1,2 +1,3 @@
-﻿# vite_citas_reactjs
-React JS - Citas
+﻿# Gestión de Citas
+
+> Implementación de LocalStorage y actualización de datos.
