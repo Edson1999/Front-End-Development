@@ -1,3 +1,4 @@
 ﻿# Gestión de Citas
 
-> Implementación de LocalStorage y actualización de datos.
+> Generación de perfiles para clientes y generar el componente con los datos de la cita, se puede actualizar y/o eliminar dicha cita.
+> Implementación de tailwindcss, Eslint + Airbnb.
