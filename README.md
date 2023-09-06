@@ -10,12 +10,14 @@
 - Control de gastos.
 - Gestión de citas.
 - Consulta de criptomonedas.
+- Journal App
 ```
 
 **Tecnologías**
 
 ```
 - React JS
+- React Redux
 - Css
 - Tailwindcss
 - Eslint + Airbnb
