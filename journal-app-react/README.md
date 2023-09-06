@@ -1,0 +1,55 @@
+## Journal App
+
+> Creación y almacenamiento de notas, permite la adición de imágenes, implementa autenticación por medio de firebase y almacenamiento de imágenes con cloudinary.
+
+<br>
+
+**Operaciones**
+
+```
+- Crear una nota.
+- Editar la nota creada.
+- Agregar imágenes a las notas.
+- Eliminar la nota seleccionada.
+```
+
+**Tecnologías**
+
+```
+- React JS
+- React Redux
+- Material UI
+- Eslint + Airbnb
+- Firebase
+- Cloudinary
+```
+
+**Dependencias**
+
+```
+"@emotion/react": "^11.11.1",
+"@emotion/styled": "^11.11.0",
+"@mui/icons-material": "^5.14.3",
+"@mui/material": "^5.14.5",
+"@reduxjs/toolkit": "^1.9.5",
+"firebase": "^10.3.0",
+"prop-types": "^15.8.1",
+"react": "^18.2.0",
+"react-dom": "^18.2.0",
+"react-redux": "^8.1.2",
+"react-router-dom": "^6.15.0",
+"sweetalert2": "^11.7.27"
+```
+
+**Dependencias de Desarrollo "devDependencies"**
+
+```
+"@types/react": "^18.2.15",
+"@types/react-dom": "^18.2.7",
+"@vitejs/plugin-react": "^4.0.3",
+"eslint": "^8.45.0",
+"eslint-plugin-react": "^7.32.2",
+"eslint-plugin-react-hooks": "^4.6.0",
+"eslint-plugin-react-refresh": "^0.4.3",
+"vite": "^4.4.5"
+```
