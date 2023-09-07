@@ -1,0 +1,93 @@
+body {
+  font-family: 'Canaro', sans-serif;
+  font-size: 1.6rem;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+header {
+  background-color: #ec3a49;
+  color: white;
+  text-align: center;
+}
+header h1 {
+  font-weight: 600;
+  margin: 0;
+  font-size: 3.2rem;
+}
+
+h2 {
+  font-size: 1.8rem;
+}
+
+/* div .container {
+  background-color: red;
+  border-radius: 2rem;
+} */
+
+.form-control,
+.form-select {
+  padding: 0.8rem 1.6rem;
+  border-radius: 2rem;
+  font-size: 1.6rem;
+}
+
+.btn {
+  font-size: 1.6rem;
+  border-radius: 2rem;
+  padding: 0.8rem 1rem;
+}
+
+.card {
+  border-radius: 2rem;
+}
+
+.card-img,
+.card-img-top {
+  display: block;
+  border-radius: 2rem;
+}
+
+.card-title {
+  border-radius: 2rem;
+}
+
+.card-title {
+  font-size: 1.6rem;
+  text-align: center;
+}
+
+.modal-content {
+  padding: 1rem;
+  border-radius: 2rem;
+  border: none;
+}
+
+.modal-content img {
+  display: block;
+  border-radius: 2rem;
+}
+
+.modal-header {
+  justify-content: center;
+}
+
+.modal-content .modal-header .modal-title {
+  font-size: 1.8rem;
+  text-align: center;
+}
+
+p.modal-instructions {
+  background-color: #f3f3f3;
+  border-radius: 2rem;
+  padding: 0.8rem 1.6rem;
+  margin-bottom: 2rem;
+}
