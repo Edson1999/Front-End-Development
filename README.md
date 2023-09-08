@@ -11,6 +11,7 @@
 - Gestión de citas.
 - Consulta de criptomonedas.
 - Journal App
+- Buscador de Bebidas
 ```
 
 **Tecnologías**
