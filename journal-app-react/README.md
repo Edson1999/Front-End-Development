@@ -1,6 +1,6 @@
 ## Journal App
 
-> Creación y almacenamiento de notas, permite la adición de imágenes, implementa autenticación por medio de firebase y almacenamiento de imágenes con cloudinary.
+> Creación y almacenamiento de notas, permite la adición de imágenes, implementa autenticación por medio de Firebase y almacenamiento de imágenes con Cloudinary.
 
 <br>
 
