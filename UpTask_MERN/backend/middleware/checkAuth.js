@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import User from '../models/Usuario.js';
+import User from '../models/User.js';
 
 /**
  * The `checkAuth` function is a middleware that checks if a valid token is present in the request
@@ -38,7 +38,7 @@ const checkAuth = async (req, res, next) => {
   }
   if (!token) {
     const error = new Error('Token no válido');
-    res.status(401).json({ msg: error.message });
+    return res.status(401).json({ msg: error.message });
   }
 
   next();

@@ -1,18 +1,21 @@
 // const express = require('express');
 import express from 'express';
 import dotenv from 'dotenv';
-import conectDB from './config/db.js';
+import connectDB from './config/db.js';
 import userRoutes from './routes/userRoutes.js';
+import projectRoutes from './routes/projectRoutes.js';
 
 const app = express();
 app.use(express.json());
 // Environment variables
 dotenv.config();
 // Connect to Db
-conectDB();
+connectDB();
 
 // Routing
 app.use('/api/users', userRoutes);
+// Project Routing
+app.use('/api/projects', projectRoutes);
 
 // Port environment variable (server side)
 const PORT = process.env.PORT || 4000;
