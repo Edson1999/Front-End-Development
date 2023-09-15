@@ -1,5 +1,6 @@
 import Project from '../models/Project.js';
 import mongoose from 'mongoose';
+import Task from '../models/Task.js';
 
 // List all projects of auth users
 const getProjects = async (req, res) => {
@@ -41,7 +42,11 @@ const getProject = async (req, res) => {
     const error = new Error('Acción no válida');
     return res.status(401).json({ msg: error.message });
   }
-  res.json(project);
+  const tasks = await Task.find().where('project').equals(project._id);
+  res.json({
+    project,
+    tasks,
+  });
 };
 
 // Allow edit a project
@@ -116,7 +121,25 @@ const addCollaborator = async (req, res) => {};
 const deleteCollaborator = async (req, res) => {};
 
 // List all project task's
-const getTasks = async (req, res) => {};
+// const getTasks = async (req, res) => {
+//   const { id } = req.params;
+//   const validId = mongoose.Types.ObjectId.isValid(id);
+
+//   if (!validId) {
+//     const error = new Error('El Id ingresado no es correcto');
+//     return res.status(404).json({ msg: error.message });
+//   }
+
+//   const existproject = await Project.findById(id);
+
+//   if (!existproject) {
+//     const error = new Error('El proyecto solicitado no existe');
+//     return res.status(404).json({ msg: error.message });
+//   }
+
+//   const tasks = await Task.find().where('project').equals(id);
+//   res.json(tasks);
+// };
 
 export {
   getProjects,
@@ -126,5 +149,5 @@ export {
   deleteProject,
   addCollaborator,
   deleteCollaborator,
-  getTasks,
+  // getTasks,
 };

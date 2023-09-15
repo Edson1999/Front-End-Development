@@ -19,7 +19,7 @@ const taskSchema = mongoose.Schema(
     deadline: {
       type: Date,
       required: true,
-      default: date.now(),
+      default: Date.now(),
     },
     priority: {
       type: String,

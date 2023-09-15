@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import connectDB from './config/db.js';
 import userRoutes from './routes/userRoutes.js';
 import projectRoutes from './routes/projectRoutes.js';
+import taskRoutes from './routes/taskRoutes.js';
 
 const app = express();
 app.use(express.json());
@@ -16,6 +17,8 @@ connectDB();
 app.use('/api/users', userRoutes);
 // Project Routing
 app.use('/api/projects', projectRoutes);
+// Task Routing
+app.use('/api/tasks', taskRoutes);
 
 // Port environment variable (server side)
 const PORT = process.env.PORT || 4000;

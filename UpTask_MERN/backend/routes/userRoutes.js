@@ -1,5 +1,4 @@
 import express from 'express';
-const router = express.Router();
 
 import {
   register,
@@ -12,6 +11,8 @@ import {
 } from '../controllers/userController.js';
 
 import checkAuth from '../middleware/checkAuth.js';
+
+const router = express.Router();
 
 // users - Auth, register and confirmation
 router.post('/', register); // Create a new user
