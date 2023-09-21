@@ -1,6 +1,7 @@
 import User from '../models/User.js';
 import idGenerator from '../helpers/idGenerator.js';
 import jwtGenerator from '../helpers/jwtGenerator.js';
+import { emailForgotPassword, emailRegister } from '../helpers/email.js';
 
 /**
  * The function `register` checks if a user with the given email already exists, and if not, it creates
@@ -26,8 +27,18 @@ const register = async (req, res) => {
   try {
     const user = new User(req.body);
     user.token = idGenerator();
-    const storeUser = await user.save();
-    res.json(storeUser);
+    await user.save();
+
+    // Send email to user for confirmation
+    emailRegister({
+      name: user.name,
+      email: user.email,
+      token: user.token,
+    });
+
+    res.json({
+      msg: 'Usuario creado correctamente, revisa tu email para confirmar tu cuenta',
+    });
   } catch (error) {
     console.log(error);
   }
@@ -124,6 +135,13 @@ const forgotPassword = async (req, res) => {
   try {
     user.token = idGenerator();
     await user.save();
+
+    // Send email to change password
+    emailForgotPassword({
+      name: user.name,
+      email: user.email,
+      token: user.token,
+    });
     res.json({ msg: 'Hemos enviado un email con las instrucciones' });
   } catch (error) {
     console.log(error);

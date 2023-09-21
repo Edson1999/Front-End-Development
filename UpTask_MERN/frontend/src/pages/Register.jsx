@@ -1,20 +1,21 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Alerta from '../components/Alerta';
+import axiosClient from '../config/axiosClient';
+import Alert from '../components/Alert';
 
 export const Register = () => {
-  const [nombre, setNombre] = useState('');
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [repetirPassword, setRepetirPassword] = useState('');
 
-  const [alerta, setAlerta] = useState({});
+  const [alert, setAlert] = useState({});
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if ([nombre, email, password, repetirPassword].includes('')) {
-      setAlerta({
+    if ([name, email, password, repetirPassword].includes('')) {
+      setAlert({
         msg: 'Todos los campos son obligatorios',
         error: true,
       });
@@ -22,7 +23,7 @@ export const Register = () => {
     }
 
     if (password !== repetirPassword) {
-      setAlerta({
+      setAlert({
         msg: 'Las contraseñas no coinciden',
         error: true,
       });
@@ -30,20 +31,42 @@ export const Register = () => {
     }
 
     if (password.length < 6) {
-      setAlerta({
+      setAlert({
         msg: 'El password debe tener más de 6 caracteres',
         error: true,
       });
       return;
     }
 
-    setAlerta({});
+    setAlert({});
 
     // Create user in API
     // Send api request to create users
+    try {
+      const respuesta = await axiosClient.post(`/users`, {
+        name,
+        email,
+        password,
+      });
+      const { data } = await respuesta;
+      setAlert({
+        msg: data.msg,
+        error: false,
+      });
+
+      setName('');
+      setEmail('');
+      setPassword('');
+      setRepetirPassword('');
+    } catch (error) {
+      setAlert({
+        msg: error.response.data.msg,
+        error: true,
+      });
+    }
   };
 
-  const { msg } = alerta;
+  const { msg } = alert;
 
   return (
     <>
@@ -51,7 +74,7 @@ export const Register = () => {
         Crea tú cuenta y administra tus{' '}
         <span className="text-slate-600">proyectos</span>
       </h1>
-      {msg && <Alerta alerta={alerta} />}
+      {msg && <Alert alert={alert} />}
       <form
         onSubmit={handleSubmit}
         className="my-8 bg-white shadow rounded-3xl py-2 px-4"
@@ -65,8 +88,8 @@ export const Register = () => {
             type="text"
             placeholder="Ingresa tú nombre"
             className="w-full mt-2 py-2 px-4 rounded-3xl border bg-gray-100"
-            value={nombre}
-            onChange={(e) => setNombre(e.target.value)}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
         </div>
         <div className="my-5">

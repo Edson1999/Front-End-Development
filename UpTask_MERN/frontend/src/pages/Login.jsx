@@ -1,13 +1,52 @@
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import Alert from '../components/Alert';
+import axiosClient from '../config/axiosClient';
 
 export const Login = () => {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [alert, setAlert] = useState({});
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if ([email, password].includes('')) {
+      setAlert({
+        msg: 'Todos los campos son obligatorios',
+        error: true,
+      });
+    }
+
+    try {
+      const { data } = await axiosClient.post('/users/login', {
+        email,
+        password,
+      });
+      setAlert({});
+      localStorage.setItem('token', data.token);
+    } catch (error) {
+      setAlert({
+        msg: error.response.data.msg,
+        error: true,
+      });
+    }
+  };
+
+  const { msg } = alert;
+
   return (
     <>
       <h1 className="text-blue-600 font-black text-5xl capitalize mt-8">
         Inicia sesión y administra tus{' '}
         <span className="text-slate-600">proyectos</span>
       </h1>
-      <form className="my-8 bg-white shadow rounded-3xl py-2 px-4">
+      {msg && <Alert alert={alert} />}
+      <form
+        onSubmit={handleSubmit}
+        className="my-8 bg-white shadow rounded-3xl py-2 px-4"
+      >
         <div className="my-5">
           <label htmlFor="email" className="text-gray-600 block font-bold">
             Email
@@ -17,6 +56,8 @@ export const Login = () => {
             type="email"
             placeholder="Email de registro"
             className="w-full mt-2 py-2 px-4 rounded-3xl border bg-gray-100"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
         <div className="my-5">
@@ -28,6 +69,8 @@ export const Login = () => {
             type="password"
             placeholder="Password de registro"
             className="w-full mt-2 py-2 px-4 rounded-3xl border bg-gray-100"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </div>
         <input
