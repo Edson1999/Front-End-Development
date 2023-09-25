@@ -5,7 +5,7 @@ export const Projects = () => {
   console.log(projects);
   return (
     <>
-      <h1 className="text-4xl font-bold">Proyectos</h1>
+      <h1 className="text-2xl font-bold text-blue-600">Proyectos</h1>
       <div></div>
     </>
   );
