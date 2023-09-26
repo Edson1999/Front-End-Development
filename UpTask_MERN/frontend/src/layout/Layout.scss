@@ -3,3 +3,9 @@
     height: calc(100vh - 59px);
   }
 }
+
+@media (min-width: 480px) {
+  .main_layout {
+    height: calc(100vh - 59px);
+  }
+}

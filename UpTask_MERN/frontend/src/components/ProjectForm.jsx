@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import useProjects from '../hooks/useProjects';
 import Alert from './Alert';
 
@@ -8,7 +9,18 @@ const ProjectForm = () => {
   const [deadline, setDeadline] = useState('');
   const [client, setClient] = useState('');
 
-  const { showAlert, alert, submitProject } = useProjects();
+  const params = useParams();
+  const { id } = params;
+  const { showAlert, alert, submitProject, project } = useProjects();
+
+  useEffect(() => {
+    if (id) {
+      setName(project.name);
+      setDescription(project.description);
+      setDeadline(project.deadline?.split('T')[0]);
+      setClient(project.client);
+    }
+  }, [params]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,7 +35,7 @@ const ProjectForm = () => {
     }
 
     // Send data to provider
-    await submitProject({ name, description, deadline, client });
+    await submitProject({ id, name, description, deadline, client });
     setName('');
     setDescription('');
     setDeadline('');
@@ -87,7 +99,7 @@ const ProjectForm = () => {
       </div>
       <input
         type="submit"
-        value="Crear Proyecto"
+        value={id ? 'Actualizar Proyecto' : 'Crear Proyecto'}
         className="w-full my-2 py-2 px-4 rounded-3xl border bg-blue-600 text-white hover:cursor-pointer hover:bg-blue-800 transition-colors"
       />
     </form>

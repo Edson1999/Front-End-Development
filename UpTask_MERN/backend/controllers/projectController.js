@@ -72,11 +72,9 @@ const getProject = async (req, res) => {
     const error = new Error('Acción no válida');
     return res.status(401).json({ msg: error.message });
   }
-  const tasks = await Task.find().where('project').equals(project._id);
-  res.json({
-    project,
-    tasks,
-  });
+  // const tasks = await Task.find().where('project').equals(project._id);
+
+  res.json(project);
 };
 
 // Allow edit a project

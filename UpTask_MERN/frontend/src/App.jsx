@@ -9,6 +9,8 @@ import {
   ConfirmAccount,
   Projects,
   NewProject,
+  Project,
+  EditProject,
 } from './pages';
 import { AuthProvider } from './context/AuthProvider';
 import { ProjectsProvider } from './context/ProjectProvider';
@@ -32,6 +34,8 @@ function App() {
             <Route path="/projects" element={<ProtectedRoutes />}>
               <Route index element={<Projects />} />
               <Route path="create-project" element={<NewProject />} />
+              <Route path=":id" element={<Project />} />
+              <Route path="edit/:id" element={<EditProject />} />
             </Route>
           </Routes>
         </ProjectsProvider>
