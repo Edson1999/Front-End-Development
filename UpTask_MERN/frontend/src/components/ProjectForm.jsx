@@ -100,7 +100,7 @@ const ProjectForm = () => {
       <input
         type="submit"
         value={id ? 'Actualizar Proyecto' : 'Crear Proyecto'}
-        className="w-full my-2 py-2 px-4 rounded-3xl border bg-blue-600 text-white hover:cursor-pointer hover:bg-blue-800 transition-colors"
+        className="w-full my-2 py-2 px-4 text-sm rounded-3xl border bg-blue-600 text-white hover:cursor-pointer hover:bg-blue-800 transition-colors"
       />
     </form>
   );
