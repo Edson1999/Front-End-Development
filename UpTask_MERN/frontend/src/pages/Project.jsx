@@ -1,13 +1,16 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import FormTaskModal from '../components/FormTaskModal';
 import Loader from '../components/Loader';
 import useProjects from '../hooks/useProjects';
 
 export const Project = () => {
   const params = useParams();
   const { id } = params;
-  const { getProject, project, loading } = useProjects();
+  const { getProject, project, loading, handleTaskModal } = useProjects();
   const { name } = project;
+
+  const [modal, setModal] = useState(false);
 
   useEffect(() => {
     getProject(id);
@@ -20,7 +23,7 @@ export const Project = () => {
     <>
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold text-blue-600">{name}</h1>
-        <div className="flex items-center gap-2 py-2 px-4 rounded-3xl bg-yellow-400 hover:bg-yellow-500 hover:cursor-pointer text-gray-600 hover:text-black">
+        <div className="flex items-center gap-2 py-2 px-4 rounded-3xl bg-yellow-400 hover:bg-yellow-500 hover:cursor-pointer text-white hover:text-black">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -41,6 +44,7 @@ export const Project = () => {
         </div>
       </div>
       <button
+        onClick={handleTaskModal}
         type="button"
         className="w-full md:w-auto text-sm my-2 py-2 px-4 rounded-3xl border bg-blue-600 text-white hover:cursor-pointer hover:bg-blue-800 transition-colors flex gap-2 items-center justify-center"
       >
@@ -60,6 +64,7 @@ export const Project = () => {
         </svg>
         Añadir Tarea
       </button>
+      <FormTaskModal modal={modal} setModal={setModal} />
     </>
   );
 };
