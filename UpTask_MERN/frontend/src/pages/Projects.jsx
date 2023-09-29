@@ -3,6 +3,7 @@ import useProjects from '../hooks/useProjects';
 
 export const Projects = () => {
   const { projects } = useProjects();
+  console.log(projects);
 
   return (
     <>

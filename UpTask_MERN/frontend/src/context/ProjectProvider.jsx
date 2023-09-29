@@ -30,7 +30,7 @@ const ProjectsProvider = ({ children }) => {
         const { data } = await axiosClient('/projects', config);
         setProjects(data);
       } catch (error) {
-        console.log(error);
+        throw new Error(error);
       }
     };
     getProjects();
@@ -45,8 +45,6 @@ const ProjectsProvider = ({ children }) => {
   };
 
   const submitProject = async (project) => {
-    console.log(project);
-
     if (project.id) {
       await editProject(project);
     } else {
@@ -88,7 +86,7 @@ const ProjectsProvider = ({ children }) => {
         navigate('/projects');
       }, 3000);
     } catch (error) {
-      console.log(error);
+      throw new Error(error);
     }
   };
 
@@ -116,7 +114,7 @@ const ProjectsProvider = ({ children }) => {
         navigate('/projects');
       }, 3000);
     } catch (error) {
-      console.log(error);
+      throw new Error(error);
     }
   };
 
@@ -176,6 +174,31 @@ const ProjectsProvider = ({ children }) => {
     setFormTaskModal(!formTaskModal);
   };
 
+  const submitTask = async (task) => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) return;
+
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const { data } = await axiosClient.post('/tasks', task, config);
+
+      //Add task to state
+      const updatedProject = { ...project };
+      updatedProject.tasks = [...project.tasks, data];
+
+      setProject(updatedProject);
+      setAlert({});
+      setFormTaskModal(false);
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
+
   return (
     <ProjectsContext.Provider
       value={{
@@ -189,6 +212,7 @@ const ProjectsProvider = ({ children }) => {
         deteleProject,
         formTaskModal,
         handleTaskModal,
+        submitTask,
       }}
     >
       {children}

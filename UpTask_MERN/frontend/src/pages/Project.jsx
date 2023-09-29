@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import FormTaskModal from '../components/FormTaskModal';
 import Loader from '../components/Loader';
+import Task from '../components/Task';
 import useProjects from '../hooks/useProjects';
 
 export const Project = () => {
@@ -64,6 +65,14 @@ export const Project = () => {
         </svg>
         Añadir Tarea
       </button>
+      <p className="font-semibold text-xl mt-10">Tareas del Proyecto</p>
+      <div className="rounded-3xl p-4 mt-2">
+        {project.tasks?.length ? (
+          project.tasks?.map((task) => <Task key={task._id} task={task} />)
+        ) : (
+          <p className="text-center">No hay tareas en este proyecto</p>
+        )}
+      </div>
       <FormTaskModal modal={modal} setModal={setModal} />
     </>
   );
