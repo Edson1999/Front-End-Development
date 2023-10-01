@@ -1,5 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import Alert from '../components/Alert';
+import DeleteTaskModal from '../components/DeleteTaskModal';
 import FormTaskModal from '../components/FormTaskModal';
 import Loader from '../components/Loader';
 import Task from '../components/Task';
@@ -8,10 +10,9 @@ import useProjects from '../hooks/useProjects';
 export const Project = () => {
   const params = useParams();
   const { id } = params;
-  const { getProject, project, loading, handleTaskModal } = useProjects();
+  const { getProject, project, loading, handleTaskModal, alert } =
+    useProjects();
   const { name } = project;
-
-  const [modal, setModal] = useState(false);
 
   useEffect(() => {
     getProject(id);
@@ -19,6 +20,7 @@ export const Project = () => {
   }, []);
 
   if (loading) return <Loader />;
+  const { msg } = alert;
 
   return (
     <>
@@ -66,6 +68,11 @@ export const Project = () => {
         Añadir Tarea
       </button>
       <p className="font-semibold text-xl mt-10">Tareas del Proyecto</p>
+      <div className="flex justify-center">
+        <div className="md:w-1/3 lg:w-1/4">
+          {msg && <Alert alert={alert} />}
+        </div>
+      </div>
       <div className="rounded-3xl p-4 mt-2">
         {project.tasks?.length ? (
           project.tasks?.map((task) => <Task key={task._id} task={task} />)
@@ -73,7 +80,8 @@ export const Project = () => {
           <p className="text-center">No hay tareas en este proyecto</p>
         )}
       </div>
-      <FormTaskModal modal={modal} setModal={setModal} />
+      <FormTaskModal />
+      <DeleteTaskModal />
     </>
   );
 };

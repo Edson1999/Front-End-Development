@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types';
 import { DateFormat } from '../helpers/DateFormat';
+import useProjects from '../hooks/useProjects';
 
 const Task = ({ task }) => {
+  const { handleModalEditTask, handleModalDeleteTask } = useProjects();
   const { name, description, priority, deadline, state, _id } = task;
 
   return (
@@ -17,7 +19,10 @@ const Task = ({ task }) => {
         <p className="text-base">{priority}</p>
       </div>
       <div className="flex gap-2">
-        <button className="py-2 px-4 rounded-3xl text-sm border text-white hover:cursor-pointer bg-indigo-500 hover:bg-indigo-700 flex gap-2 items-center justify-center">
+        <button
+          onClick={() => handleModalEditTask(task)}
+          className="py-2 px-4 rounded-3xl text-sm border text-white hover:cursor-pointer bg-indigo-500 hover:bg-indigo-700 flex gap-2 items-center justify-center"
+        >
           Editar
         </button>
         {state ? (
@@ -29,7 +34,10 @@ const Task = ({ task }) => {
             Incompleta
           </button>
         )}
-        <button className="py-2 px-4 rounded-3xl text-sm border text-white hover:cursor-pointer bg-red-500 hover:bg-red-700 flex gap-2 items-center justify-center">
+        <button
+          onClick={() => handleModalDeleteTask(task)}
+          className="py-2 px-4 rounded-3xl text-sm border text-white hover:cursor-pointer bg-red-500 hover:bg-red-700 flex gap-2 items-center justify-center"
+        >
           Eliminar
         </button>
       </div>

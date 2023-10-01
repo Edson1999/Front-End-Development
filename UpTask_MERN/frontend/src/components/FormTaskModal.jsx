@@ -8,9 +8,7 @@ import { useParams } from 'react-router-dom';
 const PRIORITY = ['Baja', 'Media', 'Alta'];
 
 const ModalFormularioTarea = () => {
-  const { formTaskModal, handleTaskModal, showAlert, alert, submitTask } =
-    useProjects();
-
+  const [taskId, setTaskId] = useState('');
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [deadline, setDeadline] = useState('');
@@ -18,6 +16,25 @@ const ModalFormularioTarea = () => {
 
   const params = useParams();
   const { id } = params;
+
+  const { formTaskModal, handleTaskModal, showAlert, alert, submitTask, task } =
+    useProjects();
+
+  useEffect(() => {
+    if (task._id) {
+      setTaskId(task._id);
+      setName(task.name);
+      setDescription(task.description);
+      setDeadline(task.deadline.split('T')[0]);
+      setPriority(task.priority);
+      return;
+    }
+    setTaskId('');
+    setName('');
+    setDescription('');
+    setDeadline('');
+    setPriority('');
+  }, [task]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,7 +46,15 @@ const ModalFormularioTarea = () => {
       });
       return;
     }
-    await submitTask({ name, description, deadline, priority, project: id });
+    await submitTask({
+      taskId,
+      name,
+      description,
+      deadline,
+      priority,
+      project: id,
+    });
+    setTaskId('');
     setName('');
     setDescription('');
     setDeadline('');
@@ -104,7 +129,7 @@ const ModalFormularioTarea = () => {
                     as="h3"
                     className="text-lg leading-6 font-semibold text-gray-900"
                   >
-                    Crear Tarea
+                    {taskId ? 'Editar Tarea' : 'Crear Tarea'}
                   </Dialog.Title>
                   {msg && <Alert alert={alert} />}
                   <form onSubmit={handleSubmit} className="mt-4">
@@ -172,7 +197,7 @@ const ModalFormularioTarea = () => {
                     </div>
                     <input
                       type="submit"
-                      value="Crear Tarea"
+                      value={taskId ? 'Guardar Cambios' : 'Crear Tarea'}
                       className="w-full mt-4 py-2 px-4 text-sm rounded-3xl border bg-blue-600 text-white hover:cursor-pointer hover:bg-blue-800 transition-colors"
                     />
                   </form>

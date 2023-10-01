@@ -11,6 +11,8 @@ const ProjectsProvider = ({ children }) => {
   const [project, setProject] = useState({});
   const [loading, setLoading] = useState(false);
   const [formTaskModal, setFormTaskModal] = useState(false);
+  const [task, setTask] = useState({});
+  const [deleteTaskModal, setDeleteTaskModal] = useState(false);
 
   const navigate = useNavigate();
 
@@ -172,9 +174,18 @@ const ProjectsProvider = ({ children }) => {
 
   const handleTaskModal = () => {
     setFormTaskModal(!formTaskModal);
+    setTask({});
   };
 
   const submitTask = async (task) => {
+    if (task?.taskId) {
+      await editTask(task);
+    } else {
+      await createNewTask(task);
+    }
+  };
+
+  const createNewTask = async (task) => {
     try {
       const token = localStorage.getItem('token');
       if (!token) return;
@@ -199,6 +210,77 @@ const ProjectsProvider = ({ children }) => {
     }
   };
 
+  const editTask = async (task) => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) return;
+
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const { data } = await axiosClient.put(
+        `/tasks/${task.taskId}`,
+        task,
+        config
+      );
+      const updatedProject = { ...project };
+      updatedProject.tasks = updatedProject.tasks.map((stateTask) =>
+        stateTask._id === data._id ? data : stateTask
+      );
+      setProject(updatedProject);
+
+      setAlert({});
+      setFormTaskModal(false);
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
+
+  const handleModalEditTask = (task) => {
+    setTask(task);
+    setFormTaskModal(true);
+  };
+
+  const handleModalDeleteTask = (task) => {
+    setTask(task);
+    setDeleteTaskModal(!deleteTaskModal);
+  };
+
+  const deleteTask = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) return;
+
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const { data } = await axiosClient.delete(`/tasks/${task._id}`, config);
+      setAlert({
+        msg: data.msg,
+        error: false,
+      });
+
+      const updatedProject = { ...project };
+      updatedProject.tasks = updatedProject.tasks.filter(
+        (stateTask) => stateTask._id !== task._id
+      );
+      setProject(updatedProject);
+      setDeleteTaskModal(false);
+      setTask({});
+
+      setTimeout(() => setAlert({}), 3000);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <ProjectsContext.Provider
       value={{
@@ -213,6 +295,11 @@ const ProjectsProvider = ({ children }) => {
         formTaskModal,
         handleTaskModal,
         submitTask,
+        handleModalEditTask,
+        task,
+        deleteTaskModal,
+        handleModalDeleteTask,
+        deleteTask,
       }}
     >
       {children}
