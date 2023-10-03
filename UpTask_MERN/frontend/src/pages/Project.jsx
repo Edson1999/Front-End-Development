@@ -80,6 +80,15 @@ export const Project = () => {
           <p className="text-center">No hay tareas en este proyecto</p>
         )}
       </div>
+      <div className="flex items-center justify-between mt-4">
+        <p className="font-semibold text-xl ">Colaboradores</p>
+        <Link
+          className="py-2 px-4 text-sm rounded-3xl bg-green-500 hover:bg-green-600 hover:cursor-pointer text-white hover:text-black"
+          to={`/projects/new-collaborator/${project._id}`}
+        >
+          Añadir
+        </Link>
+      </div>
       <FormTaskModal />
       <DeleteTaskModal />
     </>
