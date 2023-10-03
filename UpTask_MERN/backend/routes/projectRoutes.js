@@ -5,6 +5,7 @@ import {
   getProject,
   editProject,
   deleteProject,
+  searchCollaborator,
   addCollaborator,
   deleteCollaborator,
   // getTasks,
@@ -21,7 +22,8 @@ router
   .delete(checkAuth, deleteProject);
 
 // router.get('/tasks/:id', checkAuth, getTasks);
+router.post('/search-collaborator', checkAuth, searchCollaborator);
 router.post('/add-collaborator/:id', checkAuth, addCollaborator);
-router.post('/delete-collaborator/:id', checkAuth, deleteCollaborator);
+router.delete('/delete-collaborator/:id', checkAuth, deleteCollaborator);
 
 export default router;

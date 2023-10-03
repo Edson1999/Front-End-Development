@@ -13,6 +13,7 @@ const ProjectsProvider = ({ children }) => {
   const [formTaskModal, setFormTaskModal] = useState(false);
   const [task, setTask] = useState({});
   const [deleteTaskModal, setDeleteTaskModal] = useState(false);
+  const [collaborator, setCollaborator] = useState({});
 
   const navigate = useNavigate();
 
@@ -277,9 +278,41 @@ const ProjectsProvider = ({ children }) => {
 
       setTimeout(() => setAlert({}), 3000);
     } catch (error) {
-      console.log(error);
+      throw new Error(error);
     }
   };
+
+  const submitCollaborator = async (email) => {
+    setLoading(true);
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) return;
+
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const { data } = await axiosClient.post(
+        '/projects//search-collaborator',
+        { email },
+        config
+      );
+      setCollaborator(data);
+      setAlert({});
+    } catch (error) {
+      setAlert({
+        msg: error.response.data.msg,
+        error: true,
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const addCollaborator = async (email) => {};
 
   return (
     <ProjectsContext.Provider
@@ -300,6 +333,9 @@ const ProjectsProvider = ({ children }) => {
         deleteTaskModal,
         handleModalDeleteTask,
         deleteTask,
+        submitCollaborator,
+        collaborator,
+        addCollaborator,
       }}
     >
       {children}

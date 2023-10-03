@@ -1,6 +1,6 @@
-import Project from '../models/Project.js';
 import mongoose from 'mongoose';
-import Task from '../models/Task.js';
+import Project from '../models/Project.js';
+import User from '../models/User.js';
 
 // List all projects of auth users
 /**
@@ -169,6 +169,21 @@ const deleteProject = async (req, res) => {
   }
 };
 
+// Search Collaborator
+const searchCollaborator = async (req, res) => {
+  const { email } = req.body;
+  const user = await User.findOne({ email }).select(
+    '-confirmed -createdAt -password -token -updatedAt -__v'
+  );
+
+  if (!user) {
+    const error = new Error('Usuario no encontrado');
+    return res.status(404).json({ msg: error.message });
+  }
+
+  res.json(user);
+};
+
 // Add collaborator
 const addCollaborator = async (req, res) => {};
 
@@ -202,6 +217,7 @@ export {
   getProject,
   editProject,
   deleteProject,
+  searchCollaborator,
   addCollaborator,
   deleteCollaborator,
   // getTasks,
