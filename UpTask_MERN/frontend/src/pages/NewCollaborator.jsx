@@ -1,17 +1,20 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import Alert from '../components/Alert';
 import FormCollaborator from '../components/FormCollaborator';
 import Loader from '../components/Loader';
 import useProjects from '../hooks/useProjects';
 
 export const NewCollaborator = () => {
-  const { getProject, project, loading, collaborator, addCollaborator } =
+  const { getProject, project, loading, collaborator, addCollaborator, alert } =
     useProjects();
   const params = useParams();
 
   useEffect(() => {
     getProject(params.id);
   }, []);
+
+  if (!project) return <Alert alert={alert} />;
 
   return (
     <>

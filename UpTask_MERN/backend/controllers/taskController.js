@@ -140,6 +140,28 @@ const deleteTask = async (req, res) => {
  * client. It contains methods and properties that allow you to set the status code, headers, and send
  * the response body.
  */
-const changeStateTask = async (req, res) => {};
+const changeStateTask = async (req, res) => {
+  const { id } = req.params;
+  const task = await Task.findById(id).populate('project');
+
+  if (!task) {
+    const error = new Error('Tarea no encontrada');
+    res.status(404).json({ msg: error.message });
+  }
+
+  if (
+    task.project.creator.toString() !== req.user._id.toString() &&
+    !task.project.collaborators.some(
+      (collaborator) => collaborator._id.toString() === req.user._id.toString()
+    )
+  ) {
+    const error = new Error('Acción no válida');
+    return res.status(401).json({ msg: error.message });
+  }
+
+  task.state = !task.state;
+  await task.save();
+  res.json(task);
+};
 
 export { addTask, getTask, updateTask, deleteTask, changeStateTask };

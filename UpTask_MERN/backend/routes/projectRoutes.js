@@ -24,6 +24,6 @@ router
 // router.get('/tasks/:id', checkAuth, getTasks);
 router.post('/search-collaborator', checkAuth, searchCollaborator);
 router.post('/add-collaborator/:id', checkAuth, addCollaborator);
-router.delete('/delete-collaborator/:id', checkAuth, deleteCollaborator);
+router.post('/delete-collaborator/:id', checkAuth, deleteCollaborator);
 
 export default router;

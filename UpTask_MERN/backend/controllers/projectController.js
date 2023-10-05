@@ -13,10 +13,9 @@ import User from '../models/User.js';
  * JSON response, `send()` to send a plain text response, and `status()` to
  */
 const getProjects = async (req, res) => {
-  const projects = await Project.find()
-    .where('creator')
-    .equals(req.user)
-    .select('-tasks');
+  const projects = await Project.find({
+    $or: [{ collaborators: { $in: req.user } }, { creator: { $in: req.user } }],
+  }).select('-tasks');
   res.json(projects);
 };
 
@@ -64,14 +63,21 @@ const getProject = async (req, res) => {
     return res.status(404).json({ msg: error.message });
   }
 
-  const project = await Project.findById(id).populate('tasks');
+  const project = await Project.findById(id)
+    .populate('tasks')
+    .populate('collaborators', 'name email');
 
   if (!project) {
     const error = new Error('El proyecto solicitado no existe');
     return res.status(404).json({ msg: error.message });
   }
 
-  if (project.creator.toString() !== req.user._id.toString()) {
+  if (
+    project.creator.toString() !== req.user._id.toString() &&
+    !project.collaborators.some(
+      (collaborator) => collaborator._id.toString() === req.user._id.toString()
+    )
+  ) {
     const error = new Error('Acción no válida');
     return res.status(401).json({ msg: error.message });
   }
@@ -185,10 +191,72 @@ const searchCollaborator = async (req, res) => {
 };
 
 // Add collaborator
-const addCollaborator = async (req, res) => {};
+const addCollaborator = async (req, res) => {
+  const project = await Project.findById(req.params.id);
+
+  // Check if project exist
+  if (!project) {
+    const error = new Error('No se encontró el proyecto');
+    return res.status(404).json({ msg: error.message });
+  }
+
+  // Check if the user is the creator
+  if (project.creator.toString() !== req.user._id.toString()) {
+    const error = new Error('Acción no válida');
+    return res.status(404).json({ msg: error.message });
+  }
+
+  // Select some data response
+  const { email } = req.body;
+  const user = await User.findOne({ email }).select(
+    '-confirmed -createdAt -password -token -updatedAt -__v'
+  );
+
+  if (!user) {
+    const error = new Error('Usuario no encontrado');
+    return res.status(404).json({ msg: error.message });
+  }
+
+  // Check if the user does not an admin
+  if (project.creator.toString() === user._id.toString()) {
+    const error = new Error('El creador del proyecto no puede ser colaborador');
+    return res.status(404).json({ msg: error.message });
+  }
+
+  // Check if the collaborator exists
+  if (project.collaborators.includes(user._id)) {
+    const error = new Error('El usuario ya es un colaborador');
+    return res.status(404).json({ msg: error.message });
+  }
+
+  // Save collaborator
+  project.collaborators.push(user._id);
+  await project.save();
+  res.json({ msg: 'Colaborador añadido correctamente' });
+};
 
 // Remove collaborator
-const deleteCollaborator = async (req, res) => {};
+const deleteCollaborator = async (req, res) => {
+  const project = await Project.findById(req.params.id);
+
+  // Check if project exist
+  if (!project) {
+    const error = new Error('No se encontró el proyecto');
+    return res.status(404).json({ msg: error.message });
+  }
+
+  // Check if the user is the creator
+  if (project.creator.toString() !== req.user._id.toString()) {
+    const error = new Error('Acción no válida');
+    return res.status(404).json({ msg: error.message });
+  }
+
+  // Delete collaborator
+  project.collaborators.pull(req.body.id);
+
+  await project.save();
+  res.json({ msg: 'Colaborador eliminado correctamente' });
+};
 
 // List all project task's
 // const getTasks = async (req, res) => {

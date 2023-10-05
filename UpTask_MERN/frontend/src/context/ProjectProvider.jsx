@@ -14,6 +14,7 @@ const ProjectsProvider = ({ children }) => {
   const [task, setTask] = useState({});
   const [deleteTaskModal, setDeleteTaskModal] = useState(false);
   const [collaborator, setCollaborator] = useState({});
+  const [deleteCollaboratorModal, setDeleteCollaboratorModal] = useState(false);
 
   const navigate = useNavigate();
 
@@ -137,7 +138,10 @@ const ProjectsProvider = ({ children }) => {
       const { data } = await axiosClient(`/projects/${id}`, config);
       setProject(data);
     } catch (error) {
-      throw new Error(error);
+      setAlert({
+        msg: error.response.data.msg,
+        error: true,
+      });
     } finally {
       setLoading(false);
     }
@@ -296,7 +300,7 @@ const ProjectsProvider = ({ children }) => {
       };
 
       const { data } = await axiosClient.post(
-        '/projects//search-collaborator',
+        '/projects/search-collaborator',
         { email },
         config
       );
@@ -309,10 +313,114 @@ const ProjectsProvider = ({ children }) => {
       });
     } finally {
       setLoading(false);
+      setTimeout(() => setAlert({}), 3000);
     }
   };
 
-  const addCollaborator = async (email) => {};
+  const addCollaborator = async (email) => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) return;
+
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const { data } = await axiosClient.post(
+        `/projects/add-collaborator/${project._id}`,
+        email,
+        config
+      );
+
+      setAlert({
+        msg: data.msg,
+        error: false,
+      });
+
+      setCollaborator({});
+    } catch (error) {
+      setAlert({
+        msg: error.response.data.msg,
+        error: true,
+      });
+    } finally {
+      setTimeout(() => setAlert({}), 3000);
+    }
+  };
+
+  const handleDeleteCollaboratorModal = (collaborator) => {
+    setDeleteCollaboratorModal(!deleteCollaboratorModal);
+    setCollaborator(collaborator);
+  };
+
+  const deleteCollaborator = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) return;
+
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const { data } = await axiosClient.post(
+        `/projects/delete-collaborator/${project._id}`,
+        { id: collaborator._id },
+        config
+      );
+
+      const updatedProject = { ...project };
+      updatedProject.collaborators = updatedProject.collaborators.filter(
+        (collaborator) => collaborator._id !== collaborator._id
+      );
+
+      setProject(updatedProject);
+
+      setAlert({
+        msg: data.msg,
+        error: false,
+      });
+      setCollaborator({});
+      setDeleteCollaboratorModal(false);
+    } catch (error) {
+      setAlert({
+        msg: error.response.data.msg,
+        error: true,
+      });
+    } finally {
+      setTimeout(() => setAlert({}), 3000);
+    }
+  };
+
+  const taskComplete = async (id) => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) return;
+
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const { data } = await axiosClient.post(`/tasks/state/${id}`, {}, config);
+
+      const updatedProject = { ...project };
+
+      updatedProject.tasks = updatedProject.tasks.map((stateTask) =>
+        stateTask._id === data._id ? data : stateTask
+      );
+
+      setProject(updatedProject);
+      setTask({});
+      setAlert({});
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
 
   return (
     <ProjectsContext.Provider
@@ -336,6 +444,10 @@ const ProjectsProvider = ({ children }) => {
         submitCollaborator,
         collaborator,
         addCollaborator,
+        handleDeleteCollaboratorModal,
+        deleteCollaboratorModal,
+        deleteCollaborator,
+        taskComplete,
       }}
     >
       {children}
