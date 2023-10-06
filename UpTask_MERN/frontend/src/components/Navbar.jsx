@@ -1,5 +1,3 @@
-import { Link } from 'react-router-dom';
-
 const Navbar = () => {
   return (
     <header className="px-2 py-2 bg-white">
@@ -7,11 +5,6 @@ const Navbar = () => {
         <h2 className="text-4xl text-blue-700 font-black text-center mb-5 md:mb-0">
           UpTask
         </h2>
-        <input
-          type="search"
-          placeholder="Buscar proyecto"
-          className="rounded-3xl lg:w-96 block w-full py-2 px-4 border"
-        />
         <div className="flex flex-col md:flex-row items-center gap-4">
           {/* <Link
             to="/projects"
