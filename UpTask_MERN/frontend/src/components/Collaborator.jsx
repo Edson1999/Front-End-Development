@@ -6,7 +6,7 @@ const Collaborator = ({ collaborator }) => {
   const { name, email } = collaborator;
 
   return (
-    <div className="p-4 flex justify-between items-center">
+    <div className="border-b p-2 flex flex-row gap-4 items-center flex-wrap justify-between">
       <div>
         <p>{name}</p>
         <p className="text-sm text-gray-500">{email}</p>

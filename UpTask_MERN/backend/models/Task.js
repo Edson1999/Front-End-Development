@@ -30,6 +30,10 @@ const taskSchema = mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Project',
     },
+    complete: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+    },
   },
   {
     timestamps: true,

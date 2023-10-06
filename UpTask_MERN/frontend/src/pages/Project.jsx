@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import Alert from '../components/Alert';
 import Collaborator from '../components/Collaborator';
 import DeleteCollaboratorModal from '../components/DeleteCollaboratorModal';
 import DeleteTaskModal from '../components/DeleteTaskModal';
@@ -13,8 +12,7 @@ import useProjects from '../hooks/useProjects';
 export const Project = () => {
   const params = useParams();
   const { id } = params;
-  const { getProject, project, loading, handleTaskModal, alert } =
-    useProjects();
+  const { getProject, project, loading, handleTaskModal } = useProjects();
   const { name } = project;
   const admin = useAdmin();
 
@@ -24,11 +22,8 @@ export const Project = () => {
   }, []);
 
   if (loading) return <Loader />;
-  const { msg } = alert;
 
-  return msg && alert.error ? (
-    <Alert alert={alert} />
-  ) : (
+  return (
     <>
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold text-blue-600">{name}</h1>
@@ -78,11 +73,7 @@ export const Project = () => {
         </button>
       )}
       <p className="font-semibold text-xl mt-10">Tareas del Proyecto</p>
-      <div className="flex justify-center">
-        <div className="md:w-1/3 lg:w-1/4">
-          {msg && <Alert alert={alert} />}
-        </div>
-      </div>
+
       <div className="rounded-3xl p-4 mt-2">
         {project.tasks?.length ? (
           project.tasks?.map((task) => <Task key={task._id} task={task} />)

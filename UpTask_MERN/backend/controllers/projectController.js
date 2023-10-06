@@ -64,7 +64,7 @@ const getProject = async (req, res) => {
   }
 
   const project = await Project.findById(id)
-    .populate('tasks')
+    .populate({ path: 'tasks', populate: { path: 'complete', select: 'name' } })
     .populate('collaborators', 'name email');
 
   if (!project) {

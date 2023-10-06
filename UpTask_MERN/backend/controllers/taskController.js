@@ -123,7 +123,10 @@ const deleteTask = async (req, res) => {
   }
 
   try {
-    await task.deleteOne();
+    const project = await Project.findById(task.project);
+    project.tasks.pull(task._id);
+
+    await Promise.allSettled([await project.save(), await task.deleteOne()]);
     res.json({ msg: 'Tarea Eliminada' });
   } catch (error) {
     console.log(error);
@@ -160,8 +163,12 @@ const changeStateTask = async (req, res) => {
   }
 
   task.state = !task.state;
+  task.complete = req.user._id;
   await task.save();
-  res.json(task);
+  const storeTask = await Task.findById(id)
+    .populate('project')
+    .populate('complete');
+  res.json(storeTask);
 };
 
 export { addTask, getTask, updateTask, deleteTask, changeStateTask };

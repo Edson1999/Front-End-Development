@@ -21,6 +21,11 @@ const Task = ({ task }) => {
       <div>
         <p className="text-base">{priority}</p>
       </div>
+      <div>
+        {state && (
+          <p className="text-base">Completada por: {task.complete.name}</p>
+        )}
+      </div>
       <div className="flex gap-2">
         {admin && (
           <button

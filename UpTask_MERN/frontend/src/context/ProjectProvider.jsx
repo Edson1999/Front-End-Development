@@ -138,10 +138,14 @@ const ProjectsProvider = ({ children }) => {
       const { data } = await axiosClient(`/projects/${id}`, config);
       setProject(data);
     } catch (error) {
+      navigate('/projects');
       setAlert({
         msg: error.response.data.msg,
         error: true,
       });
+      setTimeout(() => {
+        setAlert({});
+      }, 3000);
     } finally {
       setLoading(false);
     }
@@ -374,7 +378,7 @@ const ProjectsProvider = ({ children }) => {
 
       const updatedProject = { ...project };
       updatedProject.collaborators = updatedProject.collaborators.filter(
-        (collaborator) => collaborator._id !== collaborator._id
+        (collaboratorState) => collaboratorState._id !== collaborator._id
       );
 
       setProject(updatedProject);
