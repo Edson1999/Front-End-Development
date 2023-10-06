@@ -10,7 +10,7 @@ const Task = ({ task }) => {
   const admin = useAdmin();
 
   return (
-    <div className="border-b p-2 flex flex-row gap-4 items-center flex-wrap justify-between">
+    <div className="border-b p-2 flex flex-row gap-4 items-center justify-between">
       <div>
         <p className="text-base">{name}</p>
         <p className="text-sm text-gray-500">{description}</p>
@@ -26,7 +26,7 @@ const Task = ({ task }) => {
           <p className="text-base">Completada por: {task.complete.name}</p>
         )}
       </div>
-      <div className="flex gap-2">
+      <div className="flex gap-2 flex-col lg:flex-row ">
         {admin && (
           <button
             onClick={() => handleModalEditTask(task)}

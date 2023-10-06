@@ -24,7 +24,7 @@ const FormCollaborator = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="my-4 rounded-3xl py-2 px-4 md:w-1/2"
+      className="my-4 rounded-3xl py-2 px-4 w-full md:w-1/2"
     >
       {msg && <Alert alert={alert} />}
       <div className="my-5">

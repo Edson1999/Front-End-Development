@@ -29,7 +29,7 @@ export const NewCollaborator = () => {
       ) : (
         collaborator?._id && (
           <div className="flex justify-center mt-4">
-            <div className="py-10 px-5 md:w-1/2">
+            <div className="py-10 px-5 md:w-1/2 w-full">
               <h2 className="text-center mb-10 text-2xl font-bold">
                 Resultado:
               </h2>

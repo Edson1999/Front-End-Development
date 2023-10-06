@@ -13,7 +13,7 @@ const ProjectPreview = ({ project }) => {
   };
 
   return (
-    <div className="border-b p-4 flex items-center justify-between">
+    <div className="border-b p-4 flex flex-col sm:flex-row items-center justify-between">
       <div>
         <p className="">{name}</p>
         <span className="text-sm text-gray-500">{client}</span>

@@ -4,21 +4,21 @@ const Navbar = () => {
   return (
     <header className="px-2 py-2 bg-white">
       <div className="md:flex md:justify-between items-center">
-        <h2 className="text-4xl text-blue-700 font-black text-center">
+        <h2 className="text-4xl text-blue-700 font-black text-center mb-5 md:mb-0">
           UpTask
         </h2>
         <input
           type="search"
           placeholder="Buscar proyecto"
-          className="rounded-3xl lg:w-96 block  py-2 px-4 border"
+          className="rounded-3xl lg:w-96 block w-full py-2 px-4 border"
         />
-        <div className="flex items-center gap-4">
-          <Link
+        <div className="flex flex-col md:flex-row items-center gap-4">
+          {/* <Link
             to="/projects"
             className="block rounded-3xl py-2 px-4  font-semibold hover:bg-gray-100"
           >
             Proyectos
-          </Link>
+          </Link> */}
           <button className="text-white bg-sky-600 text-sm py-2 px-4 rounded-3xl ">
             Cerrar Sesión
           </button>
