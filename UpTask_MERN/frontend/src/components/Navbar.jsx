@@ -1,4 +1,16 @@
+import useAuth from '../hooks/useAuth';
+import useProjects from '../hooks/useProjects';
+
 const Navbar = () => {
+  const { signOut } = useProjects();
+  const { closeSesionAuth } = useAuth();
+
+  const handleCloseSesion = () => {
+    closeSesionAuth();
+    signOut();
+    localStorage.removeItem('token');
+  };
+
   return (
     <header className="px-2 py-2 bg-white">
       <div className="md:flex md:justify-between items-center">
@@ -12,7 +24,10 @@ const Navbar = () => {
           >
             Proyectos
           </Link> */}
-          <button className="text-white bg-sky-600 text-sm py-2 px-4 rounded-3xl ">
+          <button
+            onClick={handleCloseSesion}
+            className="text-white bg-sky-600 text-sm py-2 px-4 rounded-3xl "
+          >
             Cerrar Sesión
           </button>
         </div>

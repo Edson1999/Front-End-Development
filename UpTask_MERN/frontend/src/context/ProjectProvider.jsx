@@ -2,6 +2,10 @@ import PropTypes from 'prop-types';
 import { useState, useEffect, createContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axiosClient from '../config/axiosClient';
+import io from 'socket.io-client';
+import useAuth from '../hooks/useAuth';
+
+let socket;
 
 const ProjectsContext = createContext();
 
@@ -18,6 +22,7 @@ const ProjectsProvider = ({ children }) => {
   const [searcher, setSearcher] = useState(false);
 
   const navigate = useNavigate();
+  const {auth} = useAuth();
 
   useEffect(() => {
     const getProjects = async () => {
@@ -39,6 +44,10 @@ const ProjectsProvider = ({ children }) => {
       }
     };
     getProjects();
+  }, [auth]);
+
+  useEffect(() => {
+    socket = io(import.meta.env.VITE_BACKEND_URL);
   }, []);
 
   const showAlert = (alert) => {
@@ -208,13 +217,11 @@ const ProjectsProvider = ({ children }) => {
       };
       const { data } = await axiosClient.post('/tasks', task, config);
 
-      //Add task to state
-      const updatedProject = { ...project };
-      updatedProject.tasks = [...project.tasks, data];
-
-      setProject(updatedProject);
       setAlert({});
       setFormTaskModal(false);
+
+      //Socket IO
+      socket.emit('new task', data);
     } catch (error) {
       throw new Error(error);
     }
@@ -236,14 +243,12 @@ const ProjectsProvider = ({ children }) => {
         task,
         config
       );
-      const updatedProject = { ...project };
-      updatedProject.tasks = updatedProject.tasks.map((stateTask) =>
-        stateTask._id === data._id ? data : stateTask
-      );
-      setProject(updatedProject);
 
       setAlert({});
       setFormTaskModal(false);
+
+      // Socket IO
+      socket.emit('update task', data);
     } catch (error) {
       throw new Error(error);
     }
@@ -277,14 +282,11 @@ const ProjectsProvider = ({ children }) => {
         error: false,
       });
 
-      const updatedProject = { ...project };
-      updatedProject.tasks = updatedProject.tasks.filter(
-        (stateTask) => stateTask._id !== task._id
-      );
-      setProject(updatedProject);
       setDeleteTaskModal(false);
-      setTask({});
 
+      // Socket io
+      socket.emit('delete task', task);
+      setTask({});
       setTimeout(() => setAlert({}), 3000);
     } catch (error) {
       throw new Error(error);
@@ -413,15 +415,11 @@ const ProjectsProvider = ({ children }) => {
       };
       const { data } = await axiosClient.post(`/tasks/state/${id}`, {}, config);
 
-      const updatedProject = { ...project };
-
-      updatedProject.tasks = updatedProject.tasks.map((stateTask) =>
-        stateTask._id === data._id ? data : stateTask
-      );
-
-      setProject(updatedProject);
       setTask({});
       setAlert({});
+
+      // Socket IO
+      socket.emit('task complete', data);
     } catch (error) {
       console.log(error.response);
     }
@@ -429,6 +427,47 @@ const ProjectsProvider = ({ children }) => {
 
   const handleSearcher = () => {
     setSearcher(!searcher);
+  };
+
+  // Socket IO
+  const submitProjectTasks = (task) => {
+    //Add task to state
+    const updatedProject = { ...project };
+    updatedProject.tasks = [...updatedProject.tasks, task];
+
+    setProject(updatedProject);
+  };
+
+  const deletedProjectTask = (task) => {
+    const updatedProject = { ...project };
+    updatedProject.tasks = updatedProject.tasks.filter(
+      (stateTask) => stateTask._id !== task._id
+    );
+    setProject(updatedProject);
+  };
+
+  const updateProjectTask = (task) => {
+    const updatedProject = { ...project };
+    updatedProject.tasks = updatedProject.tasks.map((stateTask) =>
+      stateTask._id === task._id ? task : stateTask
+    );
+    setProject(updatedProject);
+  };
+
+  const completeProjectTask = (task) => {
+    const updatedProject = { ...project };
+
+    updatedProject.tasks = updatedProject.tasks.map((stateTask) =>
+      stateTask._id === task._id ? task : stateTask
+    );
+
+    setProject(updatedProject);
+  };
+
+  const signOut = () => {
+    setProjects([]);
+    setProject({});
+    setAlert({});
   };
 
   return (
@@ -459,6 +498,11 @@ const ProjectsProvider = ({ children }) => {
         taskComplete,
         searcher,
         handleSearcher,
+        submitProjectTasks,
+        deletedProjectTask,
+        updateProjectTask,
+        completeProjectTask,
+        signOut,
       }}
     >
       {children}

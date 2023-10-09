@@ -8,11 +8,23 @@ import Loader from '../components/Loader';
 import Task from '../components/Task';
 import useAdmin from '../hooks/useAdmin';
 import useProjects from '../hooks/useProjects';
+import io from 'socket.io-client';
+
+let socket;
 
 export const Project = () => {
   const params = useParams();
   const { id } = params;
-  const { getProject, project, loading, handleTaskModal } = useProjects();
+  const {
+    getProject,
+    project,
+    loading,
+    handleTaskModal,
+    submitProjectTasks,
+    deletedProjectTask,
+    updateProjectTask,
+    completeProjectTask,
+  } = useProjects();
   const { name } = project;
   const admin = useAdmin();
 
@@ -20,6 +32,38 @@ export const Project = () => {
     getProject(id);
     // ? React Hook useEffect has missing dependencies
   }, []);
+
+  useEffect(() => {
+    socket = io(import.meta.env.VITE_BACKEND_URL);
+    socket.emit('open project', id);
+    // ? React Hook useEffect has missing dependencies
+  }, []);
+
+  useEffect(() => {
+    socket.on('task added', (newTask) => {
+      if (newTask.project === project._id) {
+        submitProjectTasks(newTask);
+      }
+    });
+
+    socket.on('task deleted', (deleteTask) => {
+      if (deleteTask.project === project._id) {
+        deletedProjectTask(deleteTask);
+      }
+    });
+
+    socket.on('task updated', (updatedTask) => {
+      if (updatedTask.project._id === project._id) {
+        updateProjectTask(updatedTask);
+      }
+    });
+
+    socket.on('task completed' ,(completeTask) => {
+      if(completeTask.project._id === project._id) {
+        completeProjectTask(completeTask)
+      }
+    })
+  });
 
   if (loading) return <Loader />;
 
