@@ -1,6 +1,7 @@
 ## UpTask (Back End)
 
 > Proyecto MERN Stack enfocado en la gestión de proyectos, tareas y colaboradores.
+> Implementa socket io para operaciones en tiempo real.
 
 <br>
 
