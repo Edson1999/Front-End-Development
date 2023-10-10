@@ -1,5 +1,7 @@
 import { Grid, Typography } from '@mui/material';
 
+/* The code defines a functional component called `AuthLayout`. It takes two props, `children` and
+`title`, with `title` having a default value of an empty string. */
 const AuthLayout = ({ children, title = '' }) => {
   return (
     <Grid

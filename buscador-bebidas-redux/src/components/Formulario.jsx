@@ -3,6 +3,7 @@ import { Button, Form, Row, Col, Alert } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { obtenerBebidas, obtenerCategorias } from '../redux/slice/thunks';
 
+/* The `Formulario` component is a React functional component that renders a form for searching drinks. */
 const Formulario = () => {
   const [busqueda, setBusqueda] = useState({
     nombre: '',

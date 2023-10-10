@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import Gasto from './Gasto';
 
+/* The code defines a functional component called `ListadoGastos` that takes in several props: `gasto`,
+`setGastoEditar`, `eliminarGasto`, `filtro`, and `gastosFiltrados`. */
 const ListadoGastos = ({
   gasto,
   setGastoEditar,

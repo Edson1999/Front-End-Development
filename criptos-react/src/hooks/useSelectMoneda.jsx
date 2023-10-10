@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Label, Select } from './StyleSelectMoneda';
 
+/* The code defines a custom React hook called `useSelectMoneda`. This hook takes two parameters:
+`label` and `opciones`. */
 const useSelectMoneda = (label, opciones) => {
   const [state, setState] = useState('');
 

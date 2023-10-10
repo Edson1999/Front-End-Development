@@ -3,6 +3,14 @@ import PropTypes from 'prop-types';
 import Error from './Error';
 import Swal from 'sweetalert2';
 
+/**
+ * The `Formulario` component is a form that allows users to add or edit patient data, with form
+ * validation and success messages.
+ * @returns The `Formulario` component returns a form that allows users to add or edit patient data. It
+ * includes input fields for the patient's name, owner's name, email, date of admission, and symptoms.
+ * The form also includes a submit button that displays "Guardar Cambios" (Save Changes) if the form is
+ * in edit mode, or "Agregar Pacientes" (Add Patients) if the
+ */
 const Formulario = ({ pacientes, setPacientes, paciente, setPaciente }) => {
   const [nombre, setNombre] = useState('');
   const [propietario, setPropietario] = useState('');
@@ -12,6 +20,8 @@ const Formulario = ({ pacientes, setPacientes, paciente, setPaciente }) => {
 
   const [error, setError] = useState(false);
 
+  /* The `useEffect` hook is used to perform side effects in a functional component. In this case, the
+effect is triggered whenever the `paciente` prop changes. */
   useEffect(() => {
     if (Object.keys(paciente).length > 0) {
       setNombre(paciente.nombre);
@@ -22,12 +32,23 @@ const Formulario = ({ pacientes, setPacientes, paciente, setPaciente }) => {
     }
   }, [paciente]);
 
+  /**
+   * The `generarID` function generates a unique ID by combining a random string with the current
+   * timestamp.
+   * @returns The function `generarID` returns a string that is a combination of a random alphanumeric
+   * string and the current timestamp.
+   */
   const generarID = () => {
     const fecha = Date.now().toString();
     const random = Math.random().toString(36).substring(2);
     return random + fecha;
   };
 
+  /**
+   * The handleSubmit function is used to handle form submission in a React application, where it
+   * validates the form inputs, updates the state with the new data, and displays success messages.
+   * @returns The function does not return anything.
+   */
   const handleSubmit = (e) => {
     e.preventDefault();
     if ([nombre, propietario, email, fecha, sintomas].includes('')) {

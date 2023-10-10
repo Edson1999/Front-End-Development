@@ -1,9 +1,16 @@
 import PropTypes from 'prop-types';
 import Swal from 'sweetalert2';
 
+/* The code defines a React component called `Paciente`. It receives three props: `paciente`,
+`setPaciente`, and `eliminarPaciente`. */
 const Paciente = ({ paciente, setPaciente, eliminarPaciente }) => {
   const { nombre, propietario, email, fecha, sintomas, id } = paciente;
 
+  /**
+   * The function `handleEliminar` displays a confirmation dialog using the Swal library and if the
+   * user confirms, it shows a success message and calls the `eliminarPaciente` function with the `id`
+   * parameter.
+   */
   const handleEliminar = () => {
     Swal.fire({
       title: 'Confirmar',

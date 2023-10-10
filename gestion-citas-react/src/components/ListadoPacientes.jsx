@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import Paciente from './Paciente';
 
+/* The code is defining a functional component called `ListadoPacientes`. This component takes in three
+props: `pacientes`, `setPaciente`, and `eliminarPaciente`. */
 const ListadoPacientes = ({ pacientes, setPaciente, eliminarPaciente }) => {
   return (
     <div className="md:w-1/2 lg:w-3/5 md:h-screen md:overflow-y-scroll">

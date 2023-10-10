@@ -22,6 +22,9 @@ const formData = {
   password: '',
 };
 
+/* The `LoginPage` component is a React functional component that represents the login page of an
+application. It uses various React and Material-UI components to create a form for users to enter
+their email and password to log in. */
 const LoginPage = () => {
   const { status, errorMessage } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -30,11 +33,18 @@ const LoginPage = () => {
 
   const isAuthenticated = useMemo(() => status === 'checking', [status]);
 
+  /**
+   * The onSubmit function prevents the default form submission behavior, and dispatches an action to
+   * start the login process with an email and password.
+   */
   const onSubmit = (event) => {
     event.preventDefault();
     dispatch(startLoginWithEmailPassword({ email, password }));
   };
 
+  /**
+   * The function `onGoogleSignIn` dispatches the action `startGoogleSignIn`.
+   */
   const onGoogleSignIn = () => {
     dispatch(startGoogleSignIn());
   };

@@ -1,5 +1,12 @@
 import PropTypes from 'prop-types';
 
+/**
+ * The `Filtros` component is a form that allows users to select a category to filter expenses.
+ * @returns The code is returning a component that renders a form with a select dropdown menu. The
+ * selected value of the dropdown is controlled by the "filtro" prop, and when the value is changed,
+ * the "setFiltro" function is called to update the value. The options in the dropdown represent
+ * different categories for filtering expenses.
+ */
 const Filtros = ({ filtro, setFiltro }) => {
   return (
     <div className="filtros sombra contenedor">

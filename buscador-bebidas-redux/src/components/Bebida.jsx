@@ -5,6 +5,13 @@ import { Col, Card, Button } from 'react-bootstrap';
 import ModalBebida from './ModalBebida';
 import { obtenerBebidaId } from '../redux/slice/thunks';
 
+/**
+ * The Bebida component is a React component that displays a card with a drink image and name, and a
+ * button to view the recipe of the drink in a modal.
+ * @returns The code is returning a component that displays a Card with an image and title of a drink.
+ * It also includes a button that, when clicked, triggers a function to show a modal with the recipe of
+ * the drink. The modal is rendered conditionally based on the value of the "show" state variable.
+ */
 const Bebida = ({ drink }) => {
   const [show, setShow] = useState(false);
 

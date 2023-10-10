@@ -3,6 +3,14 @@ import { useEffect, useState } from 'react';
 import btnCerrarModal from '../img/cerrar.svg';
 import Mensaje from './Mensaje';
 
+/**
+ * The `Modal` component is a form that allows users to add or edit expenses, with fields for name,
+ * amount, category, and date.
+ * @returns The code is returning a JSX element that represents a modal component. The modal component
+ * contains a form with input fields for entering the name, quantity, and category of an expense. It
+ * also includes a submit button for saving the expense. The modal component also has a close button
+ * and a message component for displaying error messages.
+ */
 const Modal = ({
   setModal,
   animarModal,
@@ -28,6 +36,11 @@ const Modal = ({
     }
   }, [gastoEditar]);
 
+  /**
+   * The function `handleCerrarModal` sets the `animarModal` state to `false`, resets the `gastoEditar`
+   * state to an empty object, and then sets the `modal` state to `false` after a delay of 500
+   * milliseconds.
+   */
   const handleCerrarModal = () => {
     setAnimarModal(false);
     setGastoEditar({});
@@ -37,6 +50,12 @@ const Modal = ({
     }, 500);
   };
 
+  /**
+   * The handleSubmit function is used to handle form submission and validate that all required fields
+   * are filled in.
+   * @returns If any of the fields (nombre, cantidad, categoria) are empty, the function will return
+   * early and not execute the code after the return statement.
+   */
   const handleSubmit = (e) => {
     e.preventDefault();
 

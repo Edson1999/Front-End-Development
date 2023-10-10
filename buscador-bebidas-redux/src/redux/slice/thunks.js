@@ -6,6 +6,11 @@ import {
   startLoading,
 } from './drinkSlice';
 
+/**
+ * The function `obtenerCategorias` is an asynchronous action that makes a request to the CocktailDB
+ * API to retrieve a list of categories and dispatches an action with the retrieved data.
+ * @returns an asynchronous function that dispatches actions.
+ */
 export const obtenerCategorias = () => {
   return async (dispatch) => {
     dispatch(startLoading());
@@ -21,6 +26,13 @@ export const obtenerCategorias = () => {
   };
 };
 
+/**
+ * The function `obtenerBebidas` is an asynchronous action that makes a dynamic request to the
+ * CocktailDB API based on the provided drink name and category, and dispatches the retrieved drinks to
+ * the Redux store.
+ * @param [datos] - An object that contains the following properties:
+ * @returns an async function that takes a dispatch function as an argument.
+ */
 export const obtenerBebidas = (datos = []) => {
   return async (dispatch) => {
     dispatch(startLoading());
@@ -36,6 +48,13 @@ export const obtenerBebidas = (datos = []) => {
   };
 };
 
+/**
+ * The function `obtenerBebidaId` is an asynchronous action that retrieves a drink by its ID from an
+ * API and dispatches an action with the retrieved drink data.
+ * @param [id=null] - The `id` parameter is the identifier of the drink that you want to retrieve. It
+ * is used to make a request to the API and fetch the drink with the corresponding ID.
+ * @returns an asynchronous function that dispatches actions.
+ */
 export const obtenerBebidaId = (id = null) => {
   return async (dispatch) => {
     dispatch(startLoading());

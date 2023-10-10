@@ -2,6 +2,13 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import Mensaje from './Mensaje';
 
+/**
+ * The `NuevoPresupuesto` function is a React component that renders a form for inputting a budget and
+ * displays an error message if the budget is invalid.
+ * @returns The function `NuevoPresupuesto` returns JSX elements, specifically a `<div>` element
+ * containing a form with input fields and a submit button. It also conditionally renders a `<Mensaje>`
+ * component if the `mensaje` state variable is truthy.
+ */
 const NuevoPresupuesto = ({
   presupuesto,
   setPresupuesto,
@@ -9,6 +16,11 @@ const NuevoPresupuesto = ({
 }) => {
   const [mensaje, setMensaje] = useState('');
 
+  /**
+   * The function "handlePresupuesto" validates a given budget and sets a message and a flag based on its
+   * validity.
+   * @returns nothing (undefined).
+   */
   const handlePresupuesto = (e) => {
     e.preventDefault();
 

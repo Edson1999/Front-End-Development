@@ -2,6 +2,9 @@ import PropTypes from 'prop-types';
 import ControlPresupuesto from './ControlPresupuesto';
 import NuevoPresupuesto from './NuevoPresupuesto';
 
+/* The code is defining a functional component called `Header`. It takes in several props as
+parameters: `gasto`, `setGasto`, `presupuesto`, `setPresupuesto`, `validPresupuesto`, and
+`setValidPresupuesto`. */
 const Header = ({
   gasto,
   setGasto,

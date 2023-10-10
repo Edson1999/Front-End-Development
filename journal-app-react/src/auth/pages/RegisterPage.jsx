@@ -19,6 +19,9 @@ const formData = {
   displayName: '',
 };
 
+/* The `formValidations` object is defining the validation rules for each form field in the
+registration form. It is an object with keys representing the form field names (`email`, `password`,
+`displayName`) and values representing an array of validation rules for each field. */
 const formValidations = {
   email: [(value) => value.includes('@'), 'El correo debe incluir una @.'],
   password: [
@@ -28,6 +31,11 @@ const formValidations = {
   displayName: [(value) => value.length >= 1, 'El nombre es requerido.'],
 };
 
+/**
+ * The RegisterPage component is a form for creating a new user account with input fields for name,
+ * email, and password.
+ * @returns The RegisterPage component is being returned.
+ */
 const RegisterPage = () => {
   const [formSubmitted, setformSubmitted] = useState(false);
   const dispatch = useDispatch();
@@ -49,6 +57,11 @@ const RegisterPage = () => {
     passwordValid,
   } = useForm(formData, formValidations);
 
+  /**
+   * The onSubmit function prevents the default form submission, sets a formSubmitted state to true, and
+   * dispatches an action to start creating a user with an email and password if the form is valid.
+   * @returns If the `isFormValid` condition is not met, nothing is being returned.
+   */
   const onSubmit = (event) => {
     event.preventDefault();
     setformSubmitted(true);

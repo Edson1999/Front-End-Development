@@ -3,6 +3,15 @@ import { useState, useEffect } from 'react';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
+/**
+ * The `ControlPresupuesto` component is a React component that displays the budget, expenses, and
+ * remaining amount, and allows the user to reset the app.
+ * @returns The component is returning a div with the class "contenedor-presupuesto contenedor sombra
+ * dos-columnas". Inside this div, there are two child elements. The first child element is a
+ * CircularProgressbar component that displays the percentage of the budget spent. The second child
+ * element is a div with the class "contenido-presupuesto" that contains a button to reset the app and
+ * three paragraphs displaying the
+ */
 const ControlPresupuesto = ({
   gasto,
   setGasto,
