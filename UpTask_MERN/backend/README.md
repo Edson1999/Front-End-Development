@@ -18,7 +18,8 @@
 - Eliminar colaboradores.
 - Buscar proyectos en especifico.
 
-- Permite la creación de cuentas a usuarios, recuperar cuentas.
+- Permite la creación de cuentas a usuarios
+- Permite recuperación de cuentas.
 ```
 
 **Tecnologías**
