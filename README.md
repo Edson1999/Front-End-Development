@@ -10,8 +10,9 @@
 - Control de gastos.
 - Gestión de citas.
 - Consulta de criptomonedas.
-- Journal App
-- Buscador de Bebidas
+- Journal App.
+- Buscador de Bebidas.
+- UpTask.
 ```
 
 **Tecnologías**
