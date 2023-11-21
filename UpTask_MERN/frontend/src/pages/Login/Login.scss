@@ -1,0 +1,18 @@
+.login {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  column-gap: 2rem;
+
+  .image-login {
+    align-self: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .image-login {
+    display: none;
+  }
+  .login {
+    grid-template-columns: none;
+  }
+}

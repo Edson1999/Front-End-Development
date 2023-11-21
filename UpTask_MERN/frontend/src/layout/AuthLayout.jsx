@@ -4,7 +4,7 @@ const AuthLayout = () => {
   return (
     <>
       <main className="container mx-auto p-5 md:flex md:justify-center md:items-center">
-        <div className="md:w-2/3 lg:w-1/3">
+        <div className="">
           <Outlet />
         </div>
       </main>

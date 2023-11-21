@@ -1,11 +1,11 @@
+// @media (min-width: 480px) {
+//   .main_layout {
+//     min-height: calc(100vh - 112px);
+//   }
+// }
+
 @media (min-width: 768px) {
   .main_layout {
-    height: calc(100vh - 59px);
-  }
-}
-
-@media (min-width: 480px) {
-  .main_layout {
-    height: calc(100vh - 59px);
+    min-height: calc(100vh - 56px);
   }
 }

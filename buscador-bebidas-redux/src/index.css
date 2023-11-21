@@ -1,5 +1,7 @@
+@import './Font/font.css';
+
 body {
-  font-family: 'Canaro', sans-serif;
+  font-family: 'Canaro', system-ui, sans-serif;
   font-size: 1.6rem;
 }
 
@@ -74,6 +76,8 @@ h2 {
 .modal-content img {
   display: block;
   border-radius: 2rem;
+  width: 50%;
+  align-self: center;
 }
 
 .modal-header {
@@ -89,5 +93,5 @@ p.modal-instructions {
   background-color: #f3f3f3;
   border-radius: 2rem;
   padding: 0.8rem 1.6rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
