@@ -1,44 +1,44 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import Alert from '../../components/Alert';
+import { Link } from 'react-router-dom';
 import axiosClient from '../../config/axiosClient';
-import useAuth from '../../hooks/useAuth';
-import login from '../../resources/login.svg';
-import './Login.scss';
+import Alert from '../../components/Alert';
+import forgotpassword from '../../resources/forgot-password.svg';
+import './ForgotPassword.scss';
 
-export const Login = () => {
+export const ForgotPassword = () => {
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [alert, setAlert] = useState({});
-  const { setAuth } = useAuth();
-  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if ([email, password].includes('')) {
+    if (email === '' || email.length < 6) {
       setAlert({
-        msg: 'Todos los campos son obligatorios',
+        msg: 'El email es obligatorio',
         error: true,
       });
 
       setTimeout(() => {
         setAlert({});
       }, 3000);
-    }
 
+      return;
+    }
     try {
-      const { data } = await axiosClient.post('/users/login', {
+      const { data } = await axiosClient.post(`/users/forgot-password`, {
         email,
-        password,
       });
-      setAlert({});
-      localStorage.setItem('token', data.token);
-      setAuth(data);
-      navigate('/projects');
+      setAlert({
+        msg: data.msg,
+        error: false,
+      });
+      setEmail('');
+      setTimeout(() => {
+        setAlert({});
+      }, 3000);
     } catch (error) {
       setAlert({
-        msg: error.response.data.msg,
+        msg: error.response?.data.msg,
         error: true,
       });
 
@@ -52,17 +52,17 @@ export const Login = () => {
 
   return (
     <>
-      <div className="login">
-        <div className="image-login">
-          <img src={login} />
+      <div className="forgot-password">
+        <div className="forgot-password-image">
+          <img src={forgotpassword} />
         </div>
         <div className="bg-white rounded-3xl">
           <h1 className="font-semibold text-5xl mt-4 text-center">
-            ¡Bienvenido a{' '}
-            <span className="text-blue-700 text-center">UpTask</span>!
+            Restablecer{' '}
+            <span className="text-blue-700 text-center">Contraseña</span>
           </h1>
           <h1 className="font-normal text-lg text-center mt-4">
-            Inicia sesión y administra tus{' '}
+            Recupera tu cuenta y no pierdas acceso a tus{' '}
             <span className="text-blue-700">proyectos</span>
           </h1>
 
@@ -81,50 +81,29 @@ export const Login = () => {
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-            <div className="my-5">
-              <label
-                htmlFor="password"
-                className="text-gray-600 block font-bold"
-              >
-                Password
-              </label>
-              <input
-                id="password"
-                type="password"
-                placeholder="Password de registro"
-                className="w-full mt-2 py-2 px-4 rounded-3xl border bg-gray-100"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
             <input
               type="submit"
-              value="Iniciar Sesión"
+              value="Enviar Instrucciones"
               className="w-full my-2 py-2 px-4 rounded-3xl border bg-blue-600 text-white hover:cursor-pointer hover:bg-blue-800 transition-colors"
             />
           </form>
-          <nav className="lg:flex lg:justify-between mb-4">
+          <nav className="lg:flex lg:justify-between">
+            <Link className="block text-center text-slate-500 text-sm" to="/">
+              ¿Ya tienes una cuenta?{' '}
+              <span className="hover:text-blue-900">Inicia Sesión</span>
+            </Link>
             <Link
               className="block text-center text-slate-500 text-sm"
-              to="register"
+              to="/register"
             >
               ¿No tienes una cuenta?{' '}
               <span className="hover:text-blue-900">Crea una nueva</span>
             </Link>
-            <Link
-              className="block text-center text-slate-500 text-sm hover:text-blue-700"
-              to="forgot-password"
-            >
-              ¿Olvidaste tu password?
-            </Link>
           </nav>
         </div>
       </div>
-      <footer className="mt-4 text-xs text-right">
-        <p>© 2023 UpTask Project, ISC Develop.</p>
-      </footer>
     </>
   );
 };
 
-export default Login;
+export default ForgotPassword;

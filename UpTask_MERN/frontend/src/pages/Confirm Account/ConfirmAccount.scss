@@ -1,0 +1,18 @@
+.confirmAccount {
+  display: grid;
+  grid-template-columns: 60% 40%;
+  column-gap: 2rem;
+
+  .confirmAccount-image {
+    align-self: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .confirmAccount-image {
+    display: none;
+  }
+  .confirmAccount {
+    grid-template-columns: none;
+  }
+}

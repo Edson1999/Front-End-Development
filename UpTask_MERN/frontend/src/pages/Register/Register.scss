@@ -1,0 +1,18 @@
+.register {
+  display: grid;
+  grid-template-columns: 40% 60%;
+  column-gap: 2rem;
+
+  .register-image {
+    align-self: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .register-image {
+    display: none;
+  }
+  .register {
+    grid-template-columns: none;
+  }
+}

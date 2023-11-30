@@ -1,8 +1,8 @@
 export * from './Login/Login';
-export * from './Register';
-export * from './ForgotPassword';
-export * from './NewPassword';
-export * from './ConfirmAccount';
+export * from './Register/Register';
+export * from './Forgot Password/ForgotPassword';
+export * from './Reset Password/NewPassword';
+export * from './Confirm Account/ConfirmAccount';
 export * from './Projects';
 export * from './NewProject';
 export * from './Project';
