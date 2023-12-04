@@ -1,9 +1,9 @@
 import { Outlet, Navigate } from 'react-router-dom';
-import Navbar from '../components/Navbar';
-import Sidebar from '../components/Sidebar';
+import Navbar from '../components/Navbar/Navbar';
+import Sidebar from '../components/Sidebar/Sidebar';
 import Loader from '../components/Loader';
 import useAuth from '../hooks/useAuth';
-import NavbarNew from '../components/Navbar/Navbar';
+
 import './Layout.scss';
 
 const ProtectedRoutes = () => {
@@ -15,14 +15,14 @@ const ProtectedRoutes = () => {
       {auth._id ? (
         <div className="bg-gray-300">
           {/* <Navbar /> */}
-          <NavbarNew />
+          <Navbar />
           {/* TODO: Responsive Area md:min-h-screen */}
-          {/* <div className="md:flex main_layout">
+          <div className="md:flex main_layout">
             <Sidebar />
             <main className="m-3 p-4 flex-1 bg-white rounded-3xl overflow-auto">
               <Outlet />
             </main>
-          </div> */}
+          </div>
         </div>
       ) : (
         <Navigate to="/" />

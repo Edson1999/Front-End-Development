@@ -7,4 +7,7 @@
   html {
     font-family: 'Canaro', system-ui, sans-serif;
   }
+  body {
+    height: 100vh;
+  }
 }

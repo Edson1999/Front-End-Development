@@ -13,10 +13,11 @@ import { SearchIcon } from './SearchIcon.jsx';
 import useAuth from '../../hooks/useAuth.jsx';
 import useProjects from '../../hooks/useProjects.jsx';
 import user from '../../resources/user.svg';
+import Searcher from '../Searcher.jsx';
 
 export default function App() {
   const { auth, closeSesionAuth } = useAuth();
-  const { signOut } = useProjects();
+  const { handleSearcher, signOut } = useProjects();
 
   const handleCloseSession = () => {
     closeSesionAuth();
@@ -24,10 +25,8 @@ export default function App() {
     localStorage.removeItem('token');
   };
 
-  console.log(auth);
-
   return (
-    <Navbar className="bg-white" isBordered maxWidth="full">
+    <Navbar position="static" className="bg-white" isBordered maxWidth="full">
       <NavbarContent justify="start">
         <NavbarBrand className="mr-4">
           <p className="sm:block font-bold text-blue-600 text-3xl">UpTask</p>
@@ -37,16 +36,17 @@ export default function App() {
       <NavbarContent as="div" className="items-center gap-8" justify="end">
         <Input
           classNames={{
-            base: 'max-w-xl sm:max-w-[20rem] h-10',
+            base: 'max-w-xl sm:max-w-[22rem] h-10',
             mainWrapper: 'h-full',
             input: 'text-small',
             inputWrapper:
               'h-full font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20',
           }}
-          placeholder="Type to search..."
+          placeholder="Ingresa una palabra para buscar..."
           size="sm"
           startContent={<SearchIcon size={18} />}
           type="search"
+          onClick={handleSearcher}
         />
         <Dropdown placement="bottom-end">
           <DropdownTrigger>
@@ -80,6 +80,7 @@ export default function App() {
           </DropdownMenu>
         </Dropdown>
       </NavbarContent>
+      <Searcher />
     </Navbar>
   );
 }

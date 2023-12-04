@@ -12,6 +12,7 @@ import {
   Project,
   EditProject,
   NewCollaborator,
+  Home,
 } from './pages';
 import { AuthProvider } from './context/AuthProvider';
 import { ProjectsProvider } from './context/ProjectProvider';
@@ -29,6 +30,11 @@ function App() {
               <Route path="forgot-password" element={<ForgotPassword />} />
               <Route path="forgot-password/:token" element={<NewPassword />} />
               <Route path="confirm/:id" element={<ConfirmAccount />} />
+            </Route>
+
+            {/* Public Routes */}
+            <Route path="/home" element={<AuthLayout />}>
+              <Route index element={<Home />} />
             </Route>
 
             {/* Protected Routes */}
