@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import {
   Card,
   CardHeader,
@@ -5,135 +6,53 @@ import {
   CardFooter,
   Divider,
   Link,
-  Image,
+  // Image,
 } from '@nextui-org/react';
 
 export default function GlobalCard(props) {
-  const { title } = props;
+  const { headerText, bodyText, footerText } = props;
   return (
-    <Card className="m-3 overflow-auto h-[97%]">
-      <CardHeader className="flex gap-3">
-        <Image
-          alt="nextui logo"
-          height={40}
-          radius="sm"
-          src="https://avatars.githubusercontent.com/u/86160567?s=200&v=4"
-          width={40}
-        />
-        <div className="flex flex-col">
-          <p className="text-md">{title}</p>
-          <p className="text-small text-default-500">nextui.org</p>
-        </div>
-      </CardHeader>
-      <Divider />
-      <CardBody className="p-4">
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-        <p>Make beautiful websites regardless of your design experience.</p>
-      </CardBody>
-      <Divider />
-      <CardFooter>
-        <Link
-          isExternal
-          showAnchorIcon
-          href="https://github.com/nextui-org/nextui"
-        >
-          Visit source code on GitHub.
-        </Link>
-      </CardFooter>
+    <Card className="m-3 h-[97%]">
+      {headerText && (
+        <>
+          <CardHeader className="flex gap-4 bg-blue-700">
+            {/* <Image
+              alt="nextui logo"
+              height={40}
+              radius="sm"
+              src="https://avatars.githubusercontent.com/u/86160567?s=200&v=4"
+              width={40}
+            /> */}
+            {headerText}
+          </CardHeader>
+          <Divider />
+        </>
+      )}
+      {bodyText && (
+        <>
+          <CardBody className="p-4 overflow-auto">{bodyText}</CardBody>
+        </>
+      )}
+      {footerText && (
+        <>
+          <Divider />
+          <CardFooter>
+            <Link
+              isExternal
+              showAnchorIcon
+              href="https://github.com/nextui-org/nextui"
+            >
+              {footerText}
+            </Link>
+          </CardFooter>
+        </>
+      )}
     </Card>
   );
 }
+
+GlobalCard.propTypes = {
+  headerText: PropTypes.object,
+  bodyText: PropTypes.object,
+  footerText: PropTypes.object,
+};

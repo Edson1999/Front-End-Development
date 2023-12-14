@@ -32,7 +32,7 @@ function App() {
               <Route path="confirm/:id" element={<ConfirmAccount />} />
             </Route>
 
-            {/* Public Routes */}
+            {/* Main Routes */}
             <Route path="/home" element={<ProtectedRoutes />}>
               <Route index element={<Home />} />
             </Route>

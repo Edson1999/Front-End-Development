@@ -42,7 +42,7 @@ const Sidebar = () => {
           Proyectos
         </Link>
         <Link
-          to="create-project"
+          to="/projects/create-project"
           className="flex gap-2 rounded-3xl py-2 px-4 font-semibold text-blue-600 hover:bg-gray-100"
         >
           <svg

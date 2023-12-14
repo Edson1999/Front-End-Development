@@ -35,7 +35,7 @@ export const Login = () => {
       setAlert({});
       localStorage.setItem('token', data.token);
       setAuth(data);
-      navigate('/projects');
+      navigate('/home');
     } catch (error) {
       setAlert({
         msg: error.response.data.msg,

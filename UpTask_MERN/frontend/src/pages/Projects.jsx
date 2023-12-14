@@ -1,18 +1,22 @@
 import Alert from '../components/Alert';
+import GlobalCard from '../components/Card/Card';
 import ProjectPreview from '../components/ProjectPreview';
 import useProjects from '../hooks/useProjects';
 
-export const Projects = () => {
-  const { projects, alert } = useProjects();
-  const { msg } = alert;
-
+function headerContent() {
   return (
     <>
-      <h1 className="text-2xl font-bold text-blue-600">Proyectos</h1>
+      <h1 className="text-3xl font-semibold text-white">Proyectos</h1>
+    </>
+  );
+}
 
+function bodyContent(projects, msg) {
+  return (
+    <>
       {msg && <Alert alert={alert} />}
 
-      <div className="mt-4">
+      <div>
         {projects.length ? (
           projects.map((project) => (
             <ProjectPreview key={project._id} project={project} />
@@ -22,6 +26,17 @@ export const Projects = () => {
         )}
       </div>
     </>
+  );
+}
+
+export const Projects = () => {
+  const { projects, alert } = useProjects();
+  const { msg } = alert;
+  return (
+    <GlobalCard
+      headerText={headerContent()}
+      bodyText={bodyContent(projects, msg)}
+    />
   );
 };
 
