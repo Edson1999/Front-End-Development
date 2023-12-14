@@ -33,7 +33,7 @@ function App() {
             </Route>
 
             {/* Public Routes */}
-            <Route path="/home" element={<AuthLayout />}>
+            <Route path="/home" element={<ProtectedRoutes />}>
               <Route index element={<Home />} />
             </Route>
 

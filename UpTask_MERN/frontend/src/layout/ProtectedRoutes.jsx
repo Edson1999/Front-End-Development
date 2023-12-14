@@ -19,7 +19,7 @@ const ProtectedRoutes = () => {
           {/* TODO: Responsive Area md:min-h-screen */}
           <div className="md:flex main_layout">
             <Sidebar />
-            <main className="m-3 p-4 flex-1 bg-white rounded-3xl overflow-auto">
+            <main className="h-full w-full bg-red-200">
               <Outlet />
             </main>
           </div>
