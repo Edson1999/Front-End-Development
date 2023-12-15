@@ -7,7 +7,7 @@ function bodyContent(auth) {
       <h1 className="text-5xl text-blue-700 font-normal text-center">
         ¡Bienvenido!
       </h1>
-      <h1 className="text-5xl text-blue-700 font-normal text-center">
+      <h1 className="text-4xl text-blue-900 font-normal text-center">
         {auth?.name}
       </h1>
       <p className="text-xl text-gray-500 font-normal text-center">

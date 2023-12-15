@@ -4,7 +4,7 @@ import ProjectForm from '../components/ProjectForm';
 function headerContent() {
   return (
     <>
-      <h1 className="text-3xl font-semibold text-white">Crear Proyectos</h1>
+      <h1 className="text-2xl font-semibold text-white">Crear Proyectos</h1>
     </>
   );
 }

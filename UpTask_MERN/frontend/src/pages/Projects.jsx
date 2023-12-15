@@ -6,12 +6,12 @@ import useProjects from '../hooks/useProjects';
 function headerContent() {
   return (
     <>
-      <h1 className="text-3xl font-semibold text-white">Proyectos</h1>
+      <h1 className="text-2xl font-semibold text-white">Proyectos</h1>
     </>
   );
 }
 
-function bodyContent(projects, msg) {
+function bodyContent(projects, alert, msg) {
   return (
     <>
       {msg && <Alert alert={alert} />}
@@ -35,7 +35,7 @@ export const Projects = () => {
   return (
     <GlobalCard
       headerText={headerContent()}
-      bodyText={bodyContent(projects, msg)}
+      bodyText={bodyContent(projects, alert, msg)}
     />
   );
 };
