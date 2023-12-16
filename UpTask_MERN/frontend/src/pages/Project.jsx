@@ -3,13 +3,14 @@ import { Link, useParams } from 'react-router-dom';
 import Collaborator from '../components/Collaborator';
 import DeleteCollaboratorModal from '../components/DeleteCollaboratorModal';
 import DeleteTaskModal from '../components/DeleteTaskModal';
-import FormTaskModal from '../components/FormTaskModal';
+// import FormTaskModal from '../components/FormTaskModal';
 import Loader from '../components/Loader';
 import Task from '../components/Task';
 import useAdmin from '../hooks/useAdmin';
 import useProjects from '../hooks/useProjects';
 import io from 'socket.io-client';
 import GlobalCard from '../components/Card/Card';
+import GlobalModal from '../components/Modal/Modal';
 
 let socket;
 
@@ -108,7 +109,8 @@ function bodyContent(admin, handleTaskModal, project) {
         </>
       )}
 
-      <FormTaskModal />
+      <GlobalModal />
+      {/* <FormTaskModal /> */}
       <DeleteTaskModal />
       <DeleteCollaboratorModal />
     </>
