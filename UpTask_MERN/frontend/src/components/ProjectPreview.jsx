@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 import useProjects from '../hooks/useProjects';
 
@@ -7,6 +7,7 @@ const ProjectPreview = ({ project }) => {
   const { auth } = useAuth();
   const { _id, name, client, creator } = project;
   const { deteleProject } = useProjects();
+  const navigate = useNavigate();
 
   const handleDelete = async () => {
     await deteleProject(_id);
@@ -24,9 +25,9 @@ const ProjectPreview = ({ project }) => {
         </p>
       )}
       <div className="flex items-center justify-between gap-2">
-        <Link
-          className="py-2 px-4 rounded-3xl text-sm border text-white hover:cursor-pointer bg-blue-500 hover:bg-blue-700 flex gap-2 items-center justify-center"
-          to={`${_id}`}
+        <button
+          className="py-2 px-4 rounded-3xl border text-white text-sm hover:cursor-pointer bg-blue-500 hover:bg-blue-700 flex gap-2 items-center justify-center"
+          onClick={() => navigate(`${_id}`)}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -34,7 +35,7 @@ const ProjectPreview = ({ project }) => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6"
+            className="w-5 h-5"
           >
             <path
               strokeLinecap="round"
@@ -48,17 +49,20 @@ const ProjectPreview = ({ project }) => {
             />
           </svg>
           Ver Proyecto
-        </Link>
+        </button>
 
         {auth._id === creator && (
-          <div className="flex items-center gap-2 py-2 px-4 rounded-3xl bg-yellow-400 hover:bg-yellow-500 hover:cursor-pointer text-white hover:text-black">
+          <button
+            className="flex items-center gap-2 py-2 px-4 rounded-3xl bg-yellow-400 hover:bg-yellow-500 hover:cursor-pointer text-white hover:text-black text-sm"
+            onClick={() => navigate(`/projects/edit/${_id}`)}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="w-4 h-4"
+              className="w-5 h-5"
             >
               <path
                 strokeLinecap="round"
@@ -66,10 +70,8 @@ const ProjectPreview = ({ project }) => {
                 d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"
               />
             </svg>
-            <Link className="text-sm" to={`/projects/edit/${_id}`}>
-              Editar
-            </Link>
-          </div>
+            Editar
+          </button>
         )}
 
         <button
@@ -82,7 +84,7 @@ const ProjectPreview = ({ project }) => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6"
+            className="w-5 h-5"
           >
             <path
               strokeLinecap="round"

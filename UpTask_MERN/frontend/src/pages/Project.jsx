@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import Collaborator from '../components/Collaborator';
 import DeleteCollaboratorModal from '../components/DeleteCollaboratorModal';
 import DeleteTaskModal from '../components/DeleteTaskModal';
@@ -14,30 +14,32 @@ import GlobalModal from '../components/Modal/Modal';
 
 let socket;
 
-function headerContent(admin, id, name) {
+function headerContent(admin, name, navigate) {
   return (
     <div className="flex flex-row w-full justify-between items-center">
       <h1 className="text-2xl font-semibold text-white">{name}</h1>
       {admin && (
-        <div className="flex items-center gap-2 py-2 px-4 rounded-3xl bg-yellow-400 hover:bg-yellow-500 hover:cursor-pointer text-white hover:text-black">
+        <button
+          className="flex items-center gap-2 py-2 px-4 rounded-3xl bg-white hover:bg-slate-200 hover:cursor-pointe text-sm"
+          onClick={() => navigate(-1)}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
-            strokeWidth={1.5}
+            strokeWidth="1.5"
             stroke="currentColor"
-            className="w-4 h-4"
+            data-slot="icon"
+            className="w-5 h-5"
           >
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
-              d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"
+              d="m11.25 9-3 3m0 0 3 3m-3-3h7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
             />
           </svg>
-          <Link className="text-sm" to={`/projects/edit/${id}`}>
-            Editar
-          </Link>
-        </div>
+          Regresar
+        </button>
       )}
     </div>
   );
@@ -47,11 +49,11 @@ function bodyContent(admin, handleTaskModal, project) {
   return (
     <>
       {admin && (
-        <div className="w-full flex justify-end">
+        <div className="flex justify-end">
           <button
             onClick={handleTaskModal}
             type="button"
-            className="w-full md:w-1/6 text-sm my-2 py-2 px-4 rounded-3xl border bg-blue-600 text-white hover:cursor-pointer hover:bg-blue-800 transition-colors flex gap-2 items-center justify-center"
+            className="text-sm my-2 py-2 px-4 rounded-3xl border bg-blue-600 text-white hover:cursor-pointer hover:bg-blue-800 transition-colors flex gap-2 items-center justify-center"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -59,7 +61,7 @@ function bodyContent(admin, handleTaskModal, project) {
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="w-6 h-6"
+              className="w-5 h-5"
             >
               <path
                 strokeLinecap="round"
@@ -109,6 +111,7 @@ function bodyContent(admin, handleTaskModal, project) {
         </>
       )}
 
+      {/* Check other modal components */}
       <GlobalModal />
       {/* <FormTaskModal /> */}
       <DeleteTaskModal />
@@ -132,6 +135,7 @@ export const Project = () => {
   } = useProjects();
   const { name } = project;
   const admin = useAdmin();
+  const navigate = useNavigate();
 
   useEffect(() => {
     getProject(id);
@@ -174,7 +178,7 @@ export const Project = () => {
 
   return (
     <GlobalCard
-      headerText={headerContent(admin, id, name)}
+      headerText={headerContent(admin, name, navigate)}
       bodyText={bodyContent(admin, handleTaskModal, project)}
     />
   );

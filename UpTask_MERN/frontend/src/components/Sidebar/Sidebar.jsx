@@ -1,11 +1,12 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Sidebar = () => {
+  const navigate = useNavigate();
   return (
     <aside className="md:w-1/4 lg:w-1/5 xl:w-1/6 px-4 py-4 bg-white ">
       <div className="flex flex-col gap-2">
-        <Link
-          to="/home"
+        <button
+          onClick={() => navigate('/home')}
           className="flex gap-2 rounded-3xl py-2 px-4 font-semibold text-blue-600 hover:bg-gray-100"
         >
           <svg
@@ -20,8 +21,8 @@ const Sidebar = () => {
               clipRule="evenodd"
             />
           </svg>
-          Home
-        </Link>
+          <p>Home</p>
+        </button>
         <Link
           to="/projects"
           className="flex gap-2 rounded-3xl py-2 px-4 font-semibold text-blue-600 hover:bg-gray-100"
