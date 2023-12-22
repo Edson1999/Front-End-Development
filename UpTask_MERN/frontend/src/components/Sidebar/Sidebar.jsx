@@ -7,7 +7,7 @@ const Sidebar = () => {
       <div className="flex flex-col gap-2">
         <button
           onClick={() => navigate('/home')}
-          className="flex gap-2 rounded-3xl py-2 px-4 font-semibold text-blue-600 hover:bg-gray-100"
+          className="flex gap-2 rounded-lg py-2 px-4 text-blue-600 hover:bg-gray-100"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -23,9 +23,10 @@ const Sidebar = () => {
           </svg>
           <p>Home</p>
         </button>
-        <Link
-          to="/projects"
-          className="flex gap-2 rounded-3xl py-2 px-4 font-semibold text-blue-600 hover:bg-gray-100"
+
+        <button
+          onClick={() => navigate('/projects')}
+          className="flex gap-2 rounded-lg py-2 px-4 text-blue-600 hover:bg-gray-100"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -41,10 +42,11 @@ const Sidebar = () => {
             />
           </svg>
           Proyectos
-        </Link>
-        <Link
-          to="/projects/create-project"
-          className="flex gap-2 rounded-3xl py-2 px-4 font-semibold text-blue-600 hover:bg-gray-100"
+        </button>
+
+        <button
+          onClick={() => navigate('/projects/create-project')}
+          className="flex gap-2 rounded-lg py-2 px-4 text-blue-600 hover:bg-gray-100"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -59,7 +61,7 @@ const Sidebar = () => {
             />
           </svg>
           Crear Proyecto
-        </Link>
+        </button>
       </div>
     </aside>
   );

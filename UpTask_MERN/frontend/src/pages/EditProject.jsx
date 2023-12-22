@@ -3,6 +3,23 @@ import { useParams } from 'react-router-dom';
 import Loader from '../components/Loader';
 import ProjectForm from '../components/ProjectForm';
 import useProjects from '../hooks/useProjects';
+import GlobalCard from '../components/Card/Card';
+
+function headerContent(name) {
+  return (
+    <h1 className="text-2xl font-semibold text-white">
+      Editar proyecto: {name}
+    </h1>
+  );
+}
+
+function bodyContent() {
+  return (
+    <div className="mt-4 flex justify-center">
+      <ProjectForm />
+    </div>
+  );
+}
 
 export const EditProject = () => {
   const params = useParams();
@@ -18,14 +35,7 @@ export const EditProject = () => {
   if (loading) return <Loader />;
 
   return (
-    <>
-      <h1 className="text-2xl font-bold text-blue-600">
-        Editar proyecto: {name}
-      </h1>
-      <div className="mt-4 flex justify-center">
-        <ProjectForm />
-      </div>
-    </>
+    <GlobalCard headerText={headerContent(name)} bodyText={bodyContent()} />
   );
 };
 

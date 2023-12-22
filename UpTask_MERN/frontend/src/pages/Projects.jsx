@@ -1,6 +1,7 @@
 import Alert from '../components/Alert';
 import GlobalCard from '../components/Card/Card';
 import ProjectPreview from '../components/ProjectPreview';
+import GlobalTable from '../components/Table/Table';
 import useProjects from '../hooks/useProjects';
 
 function headerContent() {
@@ -18,9 +19,7 @@ function bodyContent(projects, alert, msg) {
 
       <div>
         {projects.length ? (
-          projects.map((project) => (
-            <ProjectPreview key={project._id} project={project} />
-          ))
+          <GlobalTable projects={projects} />
         ) : (
           <p>No hay proyectos</p>
         )}

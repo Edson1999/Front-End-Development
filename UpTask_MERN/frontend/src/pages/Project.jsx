@@ -18,29 +18,27 @@ function headerContent(admin, name, navigate) {
   return (
     <div className="flex flex-row w-full justify-between items-center">
       <h1 className="text-2xl font-semibold text-white">{name}</h1>
-      {admin && (
-        <button
-          className="flex items-center gap-2 py-2 px-4 rounded-3xl bg-white hover:bg-slate-200 hover:cursor-pointe text-sm"
-          onClick={() => navigate(-1)}
+      <button
+        className="flex items-center gap-2 py-2 px-4 rounded-3xl bg-white hover:bg-slate-100 hover:cursor-pointe text-sm"
+        onClick={() => navigate(-1)}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth="1.5"
+          stroke="currentColor"
+          data-slot="icon"
+          className="w-5 h-5"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
-            stroke="currentColor"
-            data-slot="icon"
-            className="w-5 h-5"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="m11.25 9-3 3m0 0 3 3m-3-3h7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-            />
-          </svg>
-          Regresar
-        </button>
-      )}
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="m11.25 9-3 3m0 0 3 3m-3-3h7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+          />
+        </svg>
+        Regresar
+      </button>
     </div>
   );
 }

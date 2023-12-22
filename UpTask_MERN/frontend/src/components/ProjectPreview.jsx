@@ -53,7 +53,7 @@ const ProjectPreview = ({ project }) => {
 
         {auth._id === creator && (
           <button
-            className="flex items-center gap-2 py-2 px-4 rounded-3xl bg-yellow-400 hover:bg-yellow-500 hover:cursor-pointer text-white hover:text-black text-sm"
+            className="flex items-center gap-2 py-2 px-4 rounded-3xl bg-yellow-400 hover:bg-yellow-500 hover:cursor-pointer text-white text-sm"
             onClick={() => navigate(`/projects/edit/${_id}`)}
           >
             <svg
