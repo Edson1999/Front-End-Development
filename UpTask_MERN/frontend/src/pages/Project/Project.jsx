@@ -1,20 +1,19 @@
 import { useEffect } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import Collaborator from '../components/Collaborator';
-import DeleteCollaboratorModal from '../components/DeleteCollaboratorModal';
-import DeleteTaskModal from '../components/DeleteTaskModal';
-// import FormTaskModal from '../components/FormTaskModal';
-import Loader from '../components/Loader';
-import Task from '../components/Task';
-import useAdmin from '../hooks/useAdmin';
-import useProjects from '../hooks/useProjects';
+import { useNavigate, useParams } from 'react-router-dom';
+import DeleteCollaboratorModal from '../../components/DeleteCollaboratorModal';
+import DeleteTaskModal from '../../components/DeleteTaskModal';
+import Loader from '../../components/Loader';
+import useAdmin from '../../hooks/useAdmin';
+import useProjects from '../../hooks/useProjects';
+import GlobalCard from '../../components/Card/Card';
+import GlobalModal from '../../components/Modal/Modal';
+import TaskTable from '../../components/Task/Task';
 import io from 'socket.io-client';
-import GlobalCard from '../components/Card/Card';
-import GlobalModal from '../components/Modal/Modal';
+import Collaborators from '../../components/Collaborators/Collaborators';
 
 let socket;
 
-function headerContent(admin, name, navigate) {
+function headerContent(name, navigate) {
   return (
     <div className="flex flex-row w-full justify-between items-center">
       <h1 className="text-2xl font-semibold text-white">{name}</h1>
@@ -43,15 +42,17 @@ function headerContent(admin, name, navigate) {
   );
 }
 
-function bodyContent(admin, handleTaskModal, project) {
+function bodyContent(admin, handleTaskModal, project, navigate) {
   return (
     <>
+      <p className="font-semibold text-xl">Tareas del Proyecto</p>
+
       {admin && (
         <div className="flex justify-end">
           <button
             onClick={handleTaskModal}
             type="button"
-            className="text-sm my-2 py-2 px-4 rounded-3xl border bg-blue-600 text-white hover:cursor-pointer hover:bg-blue-800 transition-colors flex gap-2 items-center justify-center"
+            className="text-sm py-2 px-4 rounded-3xl border bg-blue-600 text-white hover:bg-blue-800 transition-colors flex gap-2 items-center justify-center"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -71,35 +72,47 @@ function bodyContent(admin, handleTaskModal, project) {
           </button>
         </div>
       )}
-      <p className="font-semibold text-xl">Tareas del Proyecto</p>
 
-      <div className="rounded-3xl p-4 mt-2">
+      <div className="p-4 mt-2">
         {project.tasks?.length ? (
-          project.tasks?.map((task) => <Task key={task._id} task={task} />)
+          <TaskTable tasks={project.tasks} />
         ) : (
           <p className="text-center">No hay tareas en este proyecto</p>
         )}
       </div>
+
       {admin && (
         <>
-          <div className="flex items-center justify-between mt-4">
-            <p className="font-semibold text-xl ">Colaboradores</p>
-            <Link
-              className="py-2 px-4 text-sm rounded-3xl bg-green-500 hover:bg-green-600 hover:cursor-pointer text-white hover:text-black"
-              to={`/projects/new-collaborator/${project._id}`}
+          <p className="font-semibold text-xl mt-2">Colaboradores</p>
+
+          <div className="flex justify-end">
+            <button
+              onClick={() =>
+                navigate(`/projects/new-collaborator/${project._id}`)
+              }
+              className="flex gap-2 py-2 px-4 text-sm rounded-3xl bg-green-500 hover:bg-green-600 text-white transition-colors"
             >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-5 h-5"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z"
+                />
+              </svg>
               Añadir
-            </Link>
+            </button>
           </div>
 
-          <div className="rounded-3xl p-4 mt-2">
+          <div className="p-4 mt-2">
             {project.collaborators?.length ? (
-              project.collaborators?.map((collaborator) => (
-                <Collaborator
-                  key={collaborator._id}
-                  collaborator={collaborator}
-                />
-              ))
+              <Collaborators collaborator={project.collaborators} />
             ) : (
               <p className="text-center">
                 No hay colaboradores en este proyecto
@@ -109,9 +122,8 @@ function bodyContent(admin, handleTaskModal, project) {
         </>
       )}
 
-      {/* Check other modal components */}
       <GlobalModal />
-      {/* <FormTaskModal /> */}
+      {/* Check other modal components */}
       <DeleteTaskModal />
       <DeleteCollaboratorModal />
     </>
@@ -176,8 +188,8 @@ export const Project = () => {
 
   return (
     <GlobalCard
-      headerText={headerContent(admin, name, navigate)}
-      bodyText={bodyContent(admin, handleTaskModal, project)}
+      headerText={headerContent(name, navigate)}
+      bodyText={bodyContent(admin, handleTaskModal, project, navigate)}
     />
   );
 };

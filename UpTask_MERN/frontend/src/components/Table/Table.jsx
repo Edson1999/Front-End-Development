@@ -26,7 +26,7 @@ export default function GlobalTable({ projects }) {
   };
 
   return (
-    <Table removeWrapper aria-label="Example static collection table">
+    <Table aria-label="Example static collection table">
       <TableHeader>
         <TableColumn className="text-base">Nombre</TableColumn>
         <TableColumn className="text-base">Cliente</TableColumn>

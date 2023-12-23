@@ -1,8 +1,7 @@
-import Alert from '../components/Alert';
-import GlobalCard from '../components/Card/Card';
-import ProjectPreview from '../components/ProjectPreview';
-import GlobalTable from '../components/Table/Table';
-import useProjects from '../hooks/useProjects';
+import Alert from '../../components/Alert';
+import GlobalCard from '../../components/Card/Card';
+import GlobalTable from '../../components/Table/Table';
+import useProjects from '../../hooks/useProjects';
 
 function headerContent() {
   return (

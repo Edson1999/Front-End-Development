@@ -1,5 +1,5 @@
-import GlobalCard from '../components/Card/Card';
-import ProjectForm from '../components/ProjectForm';
+import GlobalCard from '../../components/Card/Card';
+import ProjectForm from '../../components/ProjectForm';
 
 function headerContent() {
   return (
