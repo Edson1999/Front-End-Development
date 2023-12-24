@@ -3,10 +3,12 @@ import GlobalCard from '../../components/Card/Card';
 import GlobalTable from '../../components/Table/Table';
 import useProjects from '../../hooks/useProjects';
 
-function headerContent() {
+function headerContent(projects) {
   return (
     <>
-      <h1 className="text-2xl font-semibold text-white">Proyectos</h1>
+      <h1 className="text-2xl font-semibold text-white">
+        Proyectos ({projects.length})
+      </h1>
     </>
   );
 }
@@ -32,7 +34,7 @@ export const Projects = () => {
   const { msg } = alert;
   return (
     <GlobalCard
-      headerText={headerContent()}
+      headerText={headerContent(projects)}
       bodyText={bodyContent(projects, alert, msg)}
     />
   );
