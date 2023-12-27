@@ -25,14 +25,37 @@ export default function GlobalTable({ projects }) {
     await deteleProject(_id);
   };
 
+  const tableHeader = [
+    {
+      id: 1,
+      title: 'Nombre',
+    },
+    {
+      id: 2,
+      title: 'Cliente',
+    },
+    {
+      id: 3,
+      title: 'Rol',
+    },
+    {
+      id: 4,
+      title: 'Status',
+    },
+    {
+      id: 5,
+      title: 'Acciones',
+    },
+  ];
+
   return (
     <Table aria-label="Example static collection table">
       <TableHeader>
-        <TableColumn className="text-base">Nombre</TableColumn>
-        <TableColumn className="text-base">Cliente</TableColumn>
-        <TableColumn className="text-base">Rol</TableColumn>
-        <TableColumn className="text-base">Status</TableColumn>
-        <TableColumn className="text-base">Acciones</TableColumn>
+        {tableHeader.map((header) => (
+          <TableColumn className="text-base" key={header.id}>
+            {header.title}
+          </TableColumn>
+        ))}
       </TableHeader>
 
       <TableBody>

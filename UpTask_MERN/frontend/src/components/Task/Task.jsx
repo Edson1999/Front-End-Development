@@ -22,16 +22,41 @@ export default function TaskTable({ tasks }) {
   const { handleModalEditTask, handleModalDeleteTask, taskComplete } =
     useProjects();
   const admin = useAdmin();
+  const tableHeader = [
+    {
+      id: 1,
+      title: 'Nombre',
+    },
+    {
+      id: 2,
+      title: 'Descripción',
+    },
+    {
+      id: 3,
+      title: 'Fecha de entrega',
+    },
+    {
+      id: 4,
+      title: 'Prioridad',
+    },
+    {
+      id: 5,
+      title: 'Status',
+    },
+    {
+      id: 6,
+      title: 'Acciones',
+    },
+  ];
 
   return (
     <Table aria-label="Example static collection table">
       <TableHeader>
-        <TableColumn className="text-base">Nombre</TableColumn>
-        <TableColumn className="text-base">Descripción</TableColumn>
-        <TableColumn className="text-base">Fecha</TableColumn>
-        <TableColumn className="text-base">Prioridad</TableColumn>
-        <TableColumn className="text-base">Status</TableColumn>
-        <TableColumn className="text-base">Acciones</TableColumn>
+        {tableHeader.map((header) => (
+          <TableColumn className="text-base" key={header.id}>
+            {header.title}
+          </TableColumn>
+        ))}
       </TableHeader>
       <TableBody>
         {tasks?.map((task) => (
@@ -42,15 +67,19 @@ export default function TaskTable({ tasks }) {
             <TableCell>{task.priority}</TableCell>
             <TableCell>
               {task.state ? (
-                <div className="flex gap-2 items-center">
-                  <CheckIcon className="text-success" />
-                  <p>Completada por: {task.complete.name}</p>
-                </div>
+                <Tooltip content="Tarea completada">
+                  <div className="flex gap-2 items-center">
+                    <CheckIcon className="text-success" />
+                    <p>Completada por: {task.complete.name}</p>
+                  </div>
+                </Tooltip>
               ) : (
-                <div className="flex gap-2 items-center">
-                  <InfoIcon className="text-warning" />
-                  <p>Pendiente</p>
-                </div>
+                <Tooltip content="Está tarea no ha sido completada aún">
+                  <div className="flex gap-2 items-center">
+                    <InfoIcon className="text-warning" />
+                    <p>Pendiente</p>
+                  </div>
+                </Tooltip>
               )}
             </TableCell>
             <TableCell>
