@@ -4,10 +4,8 @@ import {
   ModalContent,
   ModalHeader,
   ModalBody,
-  ModalFooter,
   Button,
   Divider,
-  // useDisclosure,
 } from '@nextui-org/react';
 import useProjects from '../../hooks/useProjects';
 import Alert from '../Alert';
@@ -27,8 +25,6 @@ const GlobalModal = () => {
 
   const { formTaskModal, handleTaskModal, showAlert, alert, submitTask, task } =
     useProjects();
-
-  // const { isOpen, onClose } = useDisclosure();
 
   useEffect(() => {
     if (task._id) {
@@ -84,8 +80,8 @@ const GlobalModal = () => {
         {(onClose) => (
           <>
             <ModalHeader
-              className={`flex flex-col gap-1 ${
-                task._id ? 'bg-yellow-400' : 'bg-green-400'
+              className={`flex flex-col gap-1 text-white font-normal text-xl ${
+                task._id ? 'bg-[#E0A800]' : 'bg-[#28A745]'
               }`}
             >
               {taskId ? 'Editar Tarea' : 'Crear Tarea'}
@@ -150,23 +146,28 @@ const GlobalModal = () => {
                     ))}
                   </select>
                 </div>
-                <input
-                  type="submit"
-                  value={taskId ? 'Guardar Cambios' : 'Crear Tarea'}
-                  className="w-full mt-4 py-2 px-4 text-sm rounded-3xl border bg-blue-600 text-white hover:cursor-pointer hover:bg-blue-800 transition-colors"
-                />
+
+                <div className="flex gap-4 justify-end mt-8">
+                  <Button
+                    className="rounded-3xl"
+                    color="danger"
+                    onPress={onClose}
+                  >
+                    Cerrar
+                  </Button>
+                  <Button
+                    className={`rounded-3xl ${
+                      taskId ? 'bg-[#E0A800]' : 'bg-[#28A745]'
+                    }`}
+                    color="primary"
+                    type="submit"
+                    // onPress={onClose}
+                  >
+                    {taskId ? 'Guardar Cambios' : 'Crear Tarea'}
+                  </Button>
+                </div>
               </form>
             </ModalBody>
-
-            {/* Revisar para incorporar al form */}
-            <ModalFooter>
-              <Button color="danger" variant="light" onPress={onClose}>
-                Cerrar
-              </Button>
-              <Button color="primary" onPress={onClose}>
-                {taskId ? 'Guardar Cambios' : 'Crear Tarea'}
-              </Button>
-            </ModalFooter>
           </>
         )}
       </ModalContent>

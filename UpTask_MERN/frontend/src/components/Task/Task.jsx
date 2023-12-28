@@ -70,7 +70,7 @@ export default function TaskTable({ tasks }) {
                 <Tooltip content="Tarea completada">
                   <div className="flex gap-2 items-center">
                     <CheckIcon className="text-success" />
-                    <p>Completada por: {task.complete.name}</p>
+                    <p>Completada por: {task.complete?.name}</p>
                   </div>
                 </Tooltip>
               ) : (
