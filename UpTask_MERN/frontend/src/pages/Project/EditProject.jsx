@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import Loader from '../../components/Loader';
+import Loader from '../../components/Loader/Loader';
 import ProjectForm from '../../components/ProjectForm';
 import useProjects from '../../hooks/useProjects';
 import GlobalCard from '../../components/Card/Card';

@@ -1,15 +1,15 @@
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import DeleteCollaboratorModal from '../../components/DeleteCollaboratorModal';
+import DeleteCollaboratorModal from '../../components/Collaborators/DeleteCollaboratorModal';
 import DeleteTaskModal from '../../components/DeleteTaskModal';
-import Loader from '../../components/Loader';
+import Loader from '../../components/Loader/Loader';
 import useAdmin from '../../hooks/useAdmin';
 import useProjects from '../../hooks/useProjects';
 import GlobalCard from '../../components/Card/Card';
 import GlobalModal from '../../components/Modal/Modal';
 import TaskTable from '../../components/Task/Task';
-import io from 'socket.io-client';
 import Collaborators from '../../components/Collaborators/Collaborators';
+import io from 'socket.io-client';
 
 let socket;
 

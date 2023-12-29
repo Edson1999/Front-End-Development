@@ -1,7 +1,7 @@
 import { Outlet, Navigate } from 'react-router-dom';
 import Navbar from '../components/Navbar/Navbar';
 import Sidebar from '../components/Sidebar/Sidebar';
-import Loader from '../components/Loader';
+import Loader from '../components/Loader/Loader';
 import useAuth from '../hooks/useAuth';
 
 import './Layout.scss';

@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Alert from '../../components/Alert';
 import FormCollaborator from '../../components/FormCollaborator';
-import Loader from '../../components/Loader';
+import Loader from '../../components/Loader/Loader';
 import useProjects from '../../hooks/useProjects';
 import GlobalCard from '../../components/Card/Card';
 import { Avatar } from '@nextui-org/react';

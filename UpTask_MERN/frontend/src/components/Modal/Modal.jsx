@@ -27,7 +27,7 @@ const GlobalModal = () => {
     useProjects();
 
   useEffect(() => {
-    if (task._id) {
+    if (task?._id) {
       setTaskId(task._id);
       setName(task.name);
       setDescription(task.description);
@@ -147,7 +147,7 @@ const GlobalModal = () => {
                   </select>
                 </div>
 
-                <div className="flex gap-4 justify-end mt-8">
+                <div className="flex gap-2 justify-end mt-8">
                   <Button
                     className="rounded-3xl"
                     color="danger"
@@ -161,7 +161,6 @@ const GlobalModal = () => {
                     }`}
                     color="primary"
                     type="submit"
-                    // onPress={onClose}
                   >
                     {taskId ? 'Guardar Cambios' : 'Crear Tarea'}
                   </Button>
