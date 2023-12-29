@@ -14,6 +14,7 @@ import useAuth from '../../hooks/useAuth.jsx';
 import useProjects from '../../hooks/useProjects.jsx';
 import user from '../../resources/user.svg';
 import Searcher from '../Searcher.jsx';
+// import ProjectSearcher from '../Searcher/Searcher.jsx';
 
 export default function App() {
   const { auth, closeSesionAuth } = useAuth();
@@ -48,6 +49,7 @@ export default function App() {
           type="search"
           onClick={handleSearcher}
         />
+        {/* <ProjectSearcher /> */}
         <Dropdown placement="bottom-end">
           <DropdownTrigger>
             <Avatar

@@ -13,13 +13,11 @@ const ProtectedRoutes = () => {
   return (
     <>
       {auth._id ? (
-        <div className="bg-gray-300">
-          {/* <Navbar /> */}
+        <div className="bg-gray-300 app-container">
           <Navbar />
-          {/* TODO: Responsive Area md:min-h-screen */}
-          <div className="md:flex main_layout">
+          <div className="main-content">
             <Sidebar />
-            <main className="flex-1">
+            <main className="display-content">
               <Outlet />
             </main>
           </div>

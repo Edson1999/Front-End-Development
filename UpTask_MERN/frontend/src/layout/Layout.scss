@@ -4,8 +4,30 @@
 //   }
 // }
 
+// @media (min-width: 768px) {
+//   .main_layout {
+//     height: calc(100vh - 65px);
+//   }
+// }
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+}
+
 @media (min-width: 768px) {
-  .main_layout {
-    height: calc(100vh - 65px);
+  .main-content {
+    flex-direction: row;
+    flex: 1;
+
+    .display-content {
+      flex: 1;
+    }
   }
 }

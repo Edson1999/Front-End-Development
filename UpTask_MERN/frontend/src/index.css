@@ -4,10 +4,9 @@
 @tailwind utilities;
 
 @layer base {
+  body,
   html {
     font-family: 'Canaro', system-ui, sans-serif;
-  }
-  body {
-    height: 100vh;
+    height: 100%;
   }
 }

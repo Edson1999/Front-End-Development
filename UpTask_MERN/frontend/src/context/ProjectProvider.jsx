@@ -20,9 +20,11 @@ const ProjectsProvider = ({ children }) => {
   const [collaborator, setCollaborator] = useState({});
   const [deleteCollaboratorModal, setDeleteCollaboratorModal] = useState(false);
   const [searcher, setSearcher] = useState(false);
+  // Implementation for delete project
+  const [deleteProject, setDeleteProject] = useState(false);
 
   const navigate = useNavigate();
-  const {auth} = useAuth();
+  const { auth } = useAuth();
 
   useEffect(() => {
     const getProjects = async () => {
