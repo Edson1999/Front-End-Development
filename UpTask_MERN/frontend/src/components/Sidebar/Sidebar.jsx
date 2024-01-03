@@ -1,13 +1,17 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Sidebar = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+
   return (
     <aside className="md:w-1/4 lg:w-1/5 xl:w-1/6 px-4 py-4 bg-white ">
       <div className="flex flex-col gap-2">
         <button
           onClick={() => navigate('/home')}
-          className="flex gap-2 rounded-lg py-2 px-4 text-blue-600 hover:bg-gray-100"
+          className={`flex gap-2 rounded-lg py-2 px-4 text-blue-600 hover:bg-gray-100 ${
+            location.pathname === '/home' ? 'bg-gray-100 font-bold' : ''
+          }`}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -26,7 +30,9 @@ const Sidebar = () => {
 
         <button
           onClick={() => navigate('/projects')}
-          className="flex gap-2 rounded-lg py-2 px-4 text-blue-600 hover:bg-gray-100"
+          className={`flex gap-2 rounded-lg py-2 px-4 text-blue-600 hover:bg-gray-100 ${
+            location.pathname === '/projects' ? 'bg-gray-100 font-bold' : ''
+          }`}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -46,7 +52,11 @@ const Sidebar = () => {
 
         <button
           onClick={() => navigate('/projects/create-project')}
-          className="flex gap-2 rounded-lg py-2 px-4 text-blue-600 hover:bg-gray-100"
+          className={`flex gap-2 rounded-lg py-2 px-4 text-blue-600 hover:bg-gray-100 ${
+            location.pathname === '/projects/create-project'
+              ? 'bg-gray-100 font-bold'
+              : ''
+          }`}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
