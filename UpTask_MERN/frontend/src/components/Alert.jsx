@@ -1,14 +1,21 @@
+import { Card, CardBody, CardHeader, Divider } from '@nextui-org/react';
 import PropTypes from 'prop-types';
 
 const Alert = ({ alert }) => {
   return (
-    <div
-      className={`${
-        alert.error ? 'from-red-400 to-red-600' : 'from-green-400 to-green-600'
-      } bg-gradient-to-r text-center p-3 rounded-xl text-white my-4`}
+    <Card
+      className="absolute bottom-4 right-4 border-none"
+      isFooterBlurred
+      radius="lg"
     >
-      {alert.msg}
-    </div>
+      <CardHeader>
+        <p>Some title pitero</p>
+      </CardHeader>
+      <Divider />
+      <CardBody>
+        <p>{alert.msg}</p>
+      </CardBody>
+    </Card>
   );
 };
 
