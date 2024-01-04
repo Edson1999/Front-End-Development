@@ -1,4 +1,4 @@
-import Alert from '../../components/Alert';
+import Alert from '../../components/Alert/Alert';
 import GlobalCard from '../../components/Card/Card';
 import GlobalTable from '../../components/Table/Table';
 import useProjects from '../../hooks/useProjects';

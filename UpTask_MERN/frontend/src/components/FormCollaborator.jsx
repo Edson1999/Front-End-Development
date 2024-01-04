@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import useProjects from '../hooks/useProjects';
-import Alert from './Alert';
+import Alert from './Alert/Alert';
 
 const FormCollaborator = () => {
   const [email, setEmail] = useState('');

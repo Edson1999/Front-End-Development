@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import axiosClient from '../../config/axiosClient';
-import Alert from '../../components/Alert';
+import Alert from '../../components/Alert/Alert';
 import './ConfirmAccount.scss';
 import account from '../../resources/account_confirmed.svg';
 

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import Alert from '../../components/Alert';
+import Alert from '../../components/Alert/Alert';
 import FormCollaborator from '../../components/FormCollaborator';
 import Loader from '../../components/Loader/Loader';
 import useProjects from '../../hooks/useProjects';

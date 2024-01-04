@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axiosClient from '../../config/axiosClient';
-import Alert from '../../components/Alert';
+import Alert from '../../components/Alert/Alert';
 import register from '../../resources/register.svg';
 import './Register.scss';
 

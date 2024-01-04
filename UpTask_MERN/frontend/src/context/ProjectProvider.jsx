@@ -93,7 +93,8 @@ const ProjectsProvider = ({ children }) => {
       setProjects(updatedProjects);
 
       setAlert({
-        msg: `El proyecto: ${project.name} se actualizó correctamente`,
+        title: `${project.name}`,
+        msg: `El proyecto se actualizó correctamente`,
         error: false,
       });
 
@@ -121,7 +122,8 @@ const ProjectsProvider = ({ children }) => {
       setProjects([...projects, data]);
 
       setAlert({
-        msg: `El proyecto: ${project.name} se creo correctamente`,
+        title: `${project.name}`,
+        msg: `El proyecto se creo correctamente`,
         error: false,
       });
 

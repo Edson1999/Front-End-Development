@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axiosClient from '../../config/axiosClient';
-import Alert from '../../components/Alert';
+import Alert from '../../components/Alert/Alert';
 import newPassword from '../../resources/new_password.svg';
 import './NewPassword.scss';
 

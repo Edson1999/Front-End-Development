@@ -1,31 +1,26 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import Alert from '../../components/Alert';
+import { useForm } from 'react-hook-form';
+import Alert from '../../components/Alert/Alert';
 import axiosClient from '../../config/axiosClient';
 import useAuth from '../../hooks/useAuth';
 import login from '../../resources/login.svg';
 import './Login.scss';
 
 export const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const [alert, setAlert] = useState({});
   const { setAuth } = useAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const { msg } = alert;
 
-    if ([email, password].includes('')) {
-      setAlert({
-        msg: 'Todos los campos son obligatorios',
-        error: true,
-      });
-
-      setTimeout(() => {
-        setAlert({});
-      }, 3000);
-    }
+  const onSubmit = async (data) => {
+    const { email, password } = data;
 
     try {
       const { data } = await axiosClient.post('/users/login', {
@@ -33,22 +28,22 @@ export const Login = () => {
         password,
       });
       setAlert({});
+
       localStorage.setItem('token', data.token);
       setAuth(data);
       navigate('/home');
     } catch (error) {
       setAlert({
+        title: 'Credenciales no válidas',
         msg: error.response.data.msg,
         error: true,
       });
 
       setTimeout(() => {
         setAlert({});
-      }, 3000);
+      }, 4000);
     }
   };
-
-  const { msg } = alert;
 
   return (
     <>
@@ -65,44 +60,48 @@ export const Login = () => {
             Inicia sesión y administra tus{' '}
             <span className="text-blue-700">proyectos</span>
           </h1>
+          {msg && <Alert alert={alert} />}
 
-          <form onSubmit={handleSubmit} className="my-8 py-2 px-4">
-            {msg && <Alert alert={alert} />}
+          <form className="my-8 py-2 px-4" onSubmit={handleSubmit(onSubmit)}>
             <div className="my-4">
-              <label htmlFor="email" className="text-gray-600 block font-bold">
-                Email
-              </label>
+              <div className="flex gap-4 items-center">
+                <label>Email</label>
+                {errors?.email?.type === 'required' && (
+                  <p className="text-red-600 text-sm">
+                    *This field is required
+                  </p>
+                )}
+              </div>
               <input
-                id="email"
                 type="email"
-                placeholder="Email de registro"
                 className="w-full mt-2 py-2 px-4 rounded-3xl border bg-gray-100"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                {...register('email', { required: true, maxLength: 20 })}
               />
             </div>
+
             <div className="my-5">
-              <label
-                htmlFor="password"
-                className="text-gray-600 block font-bold"
-              >
-                Password
-              </label>
+              <div className="flex gap-4 items-center">
+                <label>Password</label>
+                {errors?.password?.type === 'required' && (
+                  <p className="text-red-600 text-sm">
+                    *This field is required
+                  </p>
+                )}
+              </div>
               <input
-                id="password"
                 type="password"
-                placeholder="Password de registro"
                 className="w-full mt-2 py-2 px-4 rounded-3xl border bg-gray-100"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                {...register('password', { required: true, maxLength: 20 })}
               />
             </div>
+
             <input
               type="submit"
               value="Iniciar Sesión"
               className="w-full my-2 py-2 px-4 rounded-3xl border bg-blue-600 text-white hover:cursor-pointer hover:bg-blue-800 transition-colors"
             />
           </form>
+
           <nav className="lg:flex lg:justify-between mb-4">
             <Link
               className="block text-center text-slate-500 text-sm"

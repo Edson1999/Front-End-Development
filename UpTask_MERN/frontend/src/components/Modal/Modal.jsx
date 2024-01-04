@@ -8,7 +8,7 @@ import {
   Divider,
 } from '@nextui-org/react';
 import useProjects from '../../hooks/useProjects';
-import Alert from '../Alert';
+import Alert from '../Alert/Alert';
 import { useParams } from 'react-router-dom';
 
 const PRIORITY = ['Baja', 'Media', 'Alta'];

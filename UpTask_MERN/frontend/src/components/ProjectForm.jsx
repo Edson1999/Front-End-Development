@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import useProjects from '../hooks/useProjects';
-import Alert from './Alert';
+import Alert from './Alert/Alert';
 
 const ProjectForm = () => {
   const [name, setName] = useState('');
