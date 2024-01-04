@@ -11,6 +11,7 @@ export const Login = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
   const [alert, setAlert] = useState({});
@@ -27,11 +28,19 @@ export const Login = () => {
         email,
         password,
       });
-      setAlert({});
+      setAlert({
+        title: 'Credenciales válidas',
+        msg: 'Tus credenciales de acceso son válidas',
+        error: false,
+      });
 
       localStorage.setItem('token', data.token);
       setAuth(data);
-      navigate('/home');
+
+      setTimeout(() => {
+        reset();
+        navigate('/home');
+      }, 2000);
     } catch (error) {
       setAlert({
         title: 'Credenciales no válidas',
@@ -65,15 +74,14 @@ export const Login = () => {
           <form className="my-8 py-2 px-4" onSubmit={handleSubmit(onSubmit)}>
             <div className="my-4">
               <div className="flex gap-4 items-center">
-                <label>Email</label>
+                <label className="font-semibold">Email</label>
                 {errors?.email?.type === 'required' && (
-                  <p className="text-red-600 text-sm">
-                    *This field is required
-                  </p>
+                  <p className="text-red-600 text-sm">*Requerido</p>
                 )}
               </div>
               <input
                 type="email"
+                placeholder="Email de registro"
                 className="w-full mt-2 py-2 px-4 rounded-3xl border bg-gray-100"
                 {...register('email', { required: true, maxLength: 20 })}
               />
@@ -81,15 +89,14 @@ export const Login = () => {
 
             <div className="my-5">
               <div className="flex gap-4 items-center">
-                <label>Password</label>
+                <label className="font-semibold">Password</label>
                 {errors?.password?.type === 'required' && (
-                  <p className="text-red-600 text-sm">
-                    *This field is required
-                  </p>
+                  <p className="text-red-600 text-sm">*Requerido</p>
                 )}
               </div>
               <input
                 type="password"
+                placeholder="Password de registro"
                 className="w-full mt-2 py-2 px-4 rounded-3xl border bg-gray-100"
                 {...register('password', { required: true, maxLength: 20 })}
               />
